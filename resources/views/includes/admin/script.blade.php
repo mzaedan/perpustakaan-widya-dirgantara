@@ -28,3 +28,5 @@
 <script src="{{ asset('backend/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('backend/dist/js/adminlte.js') }}"></script>
+<!-- DataTables -->
+<script src="https://cdn.datatables.net/v/bs4/dt-1.13.6/datatables.min.js"></script>
