@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('header-name')
-  Buku
+  Rak
 @endsection
 
 @section('content')
@@ -13,21 +13,16 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <a href="{{ route('buku.create') }}" class="btn btn-primary mb-3">
-                                + Tambah Buku
+                            <a href="{{ route('rak.create') }}" class="btn btn-primary mb-3">
+                                + Tambah Kategori
                             </a>
                             <div class="table-resposive">
                                 <table class="table table-hover scroll-horizontal-vertical w-100" id="crudTable">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
-                                            <th>Kode Buku</th>
-                                            <th>Nama Buku</th>
-                                            <th>Penerbit</th>
-                                            <th>Tahun Buku</th>
-                                            <th>Stok Buku</th>
-                                            <th>Tanggal Masuk</th>
-                                            <th>Aksi</th>
+                                            <th style="text-align: center">No</th>
+                                            <th style="text-align: center">Nama</th>
+                                            <th style="text-align: center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,18 +49,14 @@
                 url: '{!! url()->current() !!}',
             },
             columns: [
-                { data : 'no', name: 'no' },
-                { data : 'nama', name: 'nama' },
-                { data : 'kode_buku', name: 'kode_buku' },
-                { data : 'penerbit', name: 'penerbit' },
-                { data : 'tahun_buku', name: 'tahun_buku' },
-                { data : 'jumlah', name: 'jumlah' },
-                { data : 'nama', name: 'nama' },
+                { data : 'no', name: 'no', className: 'text-center', width: '15%' },
+                { data : 'nama', name: 'nama', className: 'text-center' },
                 {
                     data : 'action',
                     name : 'action',
                     orderable : false,
                     searcable : false,
+                    className: 'text-center',
                     width: '15%'
                 },
             ]

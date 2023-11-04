@@ -1,9 +1,13 @@
 @extends('layouts.admin')
 
+@section('header-name')
+  Dashboard
+@endsection
+
 @section('content')
 
 <!-- Main content -->
-{{-- <section class="content">
+<section class="content">
   <div class="card">
     <div class="card-header">
       <h2 class="card-title">Rekap</h2>
@@ -79,5 +83,5 @@
   </div>
   
 </section>
-<!-- /.content --> --}}
+<!-- /.content -->
 @endsection

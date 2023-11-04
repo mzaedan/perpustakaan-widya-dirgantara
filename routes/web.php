@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\KategoriController;
+use App\Models\Rak;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,4 +31,6 @@ Route::prefix('admin')
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin-dashboard');
         Route::resource('buku', BukuController::class);
+        Route::resource('kategori', KategoriController::class);
+        Route::resource('rak', RakController::class);
     });

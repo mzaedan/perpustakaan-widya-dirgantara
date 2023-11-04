@@ -3,23 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\BukuRequest;
-use App\Models\Buku;
 use Illuminate\Http\Request;
+use App\Http\Requests\Admin\KategoriRequest;
+use App\Models\Kategori;
 use Yajra\DataTables\DataTables;
-use Illuminate\Support\Str;
 
-
-class BukuController extends Controller
+class KategoriController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        if(request()->ajax())
+         if(request()->ajax())
         {
-            $query = Buku::query();
+            $query = Kategori::query();
 
             return DataTables::of($query)
                 ->addColumn('action', function($item) {
@@ -30,13 +28,10 @@ class BukuController extends Controller
                                     Aksi
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="' . route('buku.show', $item->id). '">
-                                        Detail
-                                    </a>
-                                    <a class="dropdown-item" href="' . route('buku.edit', $item->id). '">
+                                    <a class="dropdown-item" href="' . route('kategori.edit', $item->id). '">
                                         Sunting
                                     </a>
-                                    <form action="'. route('buku.destroy', $item->id) .'" method="POST" onsubmit="return confirm(\'Apakah Anda Ingin Menghapus Data Ini?\')">
+                                    <form action="'. route('kategori.destroy', $item->id) .'" method="POST" onsubmit="return confirm(\'Apakah Anda Ingin Menghapus Data Ini?\')">
                                         '. method_field('delete') . csrf_field() . '
                                         <button type="submit" class="dropdown-item text-danger">
                                             Hapus
@@ -47,16 +42,20 @@ class BukuController extends Controller
                         </div>
                     ';
                 })
+                // ->editColumn('photo', function($item){
+                //     return $item->photo ? '<img src="'. asset('storage/'.$item->photo) .'" style="max-height: 40px;"/>' : '';
+                // })
+
                 ->addColumn('no', function($item) {
                     static $count = 1;
                     return $count++;
                 })
                
-                ->rawColumns(['action', 'no'])
+                ->rawColumns(['action','no'])
                 ->make();
 
         }
-        return view('pages.admin.buku.index');
+        return view('pages.admin.kategori.index');
     }
 
     /**
@@ -64,24 +63,19 @@ class BukuController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.buku.create');
+        return view('pages.admin.kategori.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(BukuRequest $request)
+    public function store(KategoriRequest $request)
     {
         $data = $request->all();
 
-        $data['kode_buku'] =  'BK001';
+        Kategori::create($data);
 
-        $data['sampul'] = $request->file('sampul')->store('assets/sampul', 'public');
-        $data['lampiran'] = $request->file('lampiran')->store('assets/lampiran', 'public');
-
-        Buku::create($data);
-
-        return redirect()->route('buku.index');
+        return redirect()->route('kategori.index');
     }
 
     /**
@@ -89,11 +83,7 @@ class BukuController extends Controller
      */
     public function show(string $id)
     {
-        $item = Buku::findOrFail($id);
-
-        return view('pages.admin.buku.show',[
-            'item' => $item
-        ]);
+        //
     }
 
     /**
@@ -101,9 +91,9 @@ class BukuController extends Controller
      */
     public function edit(string $id)
     {
-        $item = Buku::findOrFail($id);
+        $item = Kategori::findOrFail($id);
 
-        return view('pages.admin.buku.edit',[
+        return view('pages.admin.katgori.edit',[
             'item' => $item
         ]);
     }
@@ -111,20 +101,15 @@ class BukuController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(BukuRequest $request, string $id)
+    public function update(KategoriRequest $request, string $id)
     {
         $data = $request->all();
 
-        $data['kode_buku'] =  'BK001';
-
-        $data['sampul'] = $request->file('sampul')->store('assets/sampul', 'public');
-        $data['lampiran'] = $request->file('lampiran')->store('assets/lampiran', 'public');
-
-        $item = Buku::findOrFail($id);
+        $item = Kategori::findOrFail($id);
 
         $item->update($data);
 
-        return redirect()->route('buku.index');
+        return redirect()->route('kategori.index');
     }
 
     /**
@@ -132,9 +117,9 @@ class BukuController extends Controller
      */
     public function destroy(string $id)
     {
-        $item = Buku::findOrFail($id);
+        $item = Kategori::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('buku.index');
+        return redirect()->route('kategori.index');
     }
 }

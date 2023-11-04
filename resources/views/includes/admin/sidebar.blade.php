@@ -36,13 +36,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/data.html" class="nav-link">
+                <a href="{{ route('kategori.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kategori</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/tables/jsgrid.html" class="nav-link">
+                <a href="{{ route('rak.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Rak</p>
                 </a>
