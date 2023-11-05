@@ -55,8 +55,8 @@
             },
             columns: [
                 { data : 'no', name: 'no' },
-                { data : 'nama', name: 'nama' },
                 { data : 'kode_buku', name: 'kode_buku' },
+                { data : 'nama', name: 'nama' },
                 { data : 'penerbit', name: 'penerbit' },
                 { data : 'tahun_buku', name: 'tahun_buku' },
                 { data : 'jumlah', name: 'jumlah' },
