@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KategoriController;
+use App\Models\Peminjaman;
 use App\Models\Rak;
 
 /*
@@ -33,4 +34,5 @@ Route::prefix('admin')
         Route::resource('buku', BukuController::class);
         Route::resource('kategori', KategoriController::class);
         Route::resource('rak', RakController::class);
+        Route::resource('peminjaman', PeminjamanController::class);
     });

@@ -10,6 +10,8 @@ class Buku extends Model
 {
     use SoftDeletes;
 
+    protected $table = 'buku';
+
     protected $fillable = [
         'nama' , 'id_kategori', 'id_rak', 'sampul', 'isbn', 'lampiran', 'penerbit', 'pengarang', 'tahun_buku', 'isi', 'jumlah'
     ];

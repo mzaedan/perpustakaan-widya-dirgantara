@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Peminjaman;
 use Illuminate\Http\Request;
-use App\Http\Requests\Admin\KategoriRequest;
-use App\Models\Kategori;
+use App\Http\Requests\Admin\PeminjamanRequest;
 use Yajra\DataTables\DataTables;
 
-class KategoriController extends Controller
+class PeminjamanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class KategoriController extends Controller
     {
         if(request()->ajax())
         {
-            $query = Kategori::query();
+            $query = Peminjaman::query();
 
             return DataTables::of($query)
                 ->addColumn('action', function($item) {
@@ -28,13 +28,13 @@ class KategoriController extends Controller
                                     Aksi
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="' . route('kategori.edit', $item->id). '">
+                                    <a class="dropdown-item" href="' . route('peminjaman.show', $item->id). '">
+                                        Kembalikan
+                                    </a>
+                                    <a class="dropdown-item" href="' . route('peminjaman.show', $item->id). '">
                                         Detail
                                     </a>
-                                    <a class="dropdown-item" href="' . route('kategori.edit', $item->id). '">
-                                        Detail
-                                    </a>
-                                    <form action="'. route('kategori.destroy', $item->id) .'" method="POST" onsubmit="return confirm(\'Apakah Anda Ingin Menghapus Data Ini?\')">
+                                    <form action="'. route('peminjaman.destroy', $item->id) .'" method="POST" onsubmit="return confirm(\'Apakah Anda Ingin Menghapus Data Ini?\')">
                                         '. method_field('delete') . csrf_field() . '
                                         <button type="submit" class="dropdown-item text-danger">
                                             Hapus
@@ -54,7 +54,7 @@ class KategoriController extends Controller
                 ->make();
 
         }
-        return view('pages.admin.kategori.index');
+        return view('pages.admin.peminjaman.index');
     }
 
     /**
@@ -62,19 +62,19 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.kategori.create');
+        return view('pages.admin.peminjaman.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(KategoriRequest $request)
+    public function store(PeminjamanRequest $request)
     {
         $data = $request->all();
 
-        Kategori::create($data);
+        Peminjaman::create($data);
 
-        return redirect()->route('kategori.index');
+        return redirect()->route('peminjaman.index');
     }
 
     /**
@@ -82,7 +82,11 @@ class KategoriController extends Controller
      */
     public function show(string $id)
     {
-        
+        $item = Peminjaman::findOrFail($id);
+
+        return view('pages.admin.peminjaman.show',[
+            'item' => $item
+        ]);
     }
 
     /**
@@ -90,25 +94,15 @@ class KategoriController extends Controller
      */
     public function edit(string $id)
     {
-        $item = Kategori::findOrFail($id);
-
-        return view('pages.admin.katgori.edit',[
-            'item' => $item
-        ]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(KategoriRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
-        $data = $request->all();
-
-        $item = Kategori::findOrFail($id);
-
-        $item->update($data);
-
-        return redirect()->route('kategori.index');
+        //
     }
 
     /**
@@ -116,9 +110,9 @@ class KategoriController extends Controller
      */
     public function destroy(string $id)
     {
-        $item = Kategori::findOrFail($id);
+        $item = Peminjaman::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('kategori.index');
+        return redirect()->route('peminjaman.index');
     }
 }
