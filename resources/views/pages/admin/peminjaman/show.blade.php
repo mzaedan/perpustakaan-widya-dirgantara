@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('header-name')
-  Detail Buku
+Detail Buku
 @endsection
 
 @section('content')
@@ -55,7 +55,7 @@
                                             <td>:</td>
                                             <td>
                                                 <table class="table table-striped">
-											        <tr>
+                                                    <tr>
                                                         <td>Nama Anggota</td>
                                                         <td>:</td>
                                                         <td>Zaedan</td>
@@ -80,7 +80,7 @@
                                                         <td>:</td>
                                                         <td>Anggota</td>
                                                     </tr>
-										        </table>
+                                                </table>
                                             </td>
                                         </tr>
                                         <tr>
@@ -108,54 +108,53 @@
                                             <td>
                                                 Belum Dikembalikan
                                             </td>
-								        </tr>
+                                        </tr>
                                         <tr>
                                             <td>Denda</td>
                                             <td>:</td>
                                             <td>
-                                               <p>1 Hari</p>
+                                                <p>1 Hari</p>
                                                 Rp. 2000
-                                                </p><small style="color:#333;">*Untuk 1 Buku</small>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Kode Buku</td>
-                                            <td>:</td>
-                                            <td>BK001</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Data Buku</td>
-                                            <td>:</td>
-                                            <td>
-                                                <table class="table table-striped">
-											        <thead>
-												        <tr>
-                                                            <th>No</th>
-                                                            <th>Title</th>
-                                                            <th>Penerbit</th>
-                                                            <th>Tahun</th>
-												        </tr>
-                                                    </thead>
-											        <tbody>
-                                                        <tr>
-                                                            <td>1</td>
-                                                            <td>Laskar Pelangi</td>
-                                                            <td>Gramedia</td>
-                                                            <td>2009</td>
-                                                        </tr>
-                                                    </tbody>
-										        </table>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div> 
-                        </div>
-                        <div class="card-footer">
-                            <div class="row">
-                                <div class="col text-right">
-                                    <a href="{{ route('peminjaman.index') }}" class="btn btn-primary">Kembali</a>
-                                </div>
+                                            </p><small style="color:#333;">*Untuk 1 Buku</small>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kode Buku</td>
+                                        <td>:</td>
+                                        <td>BK001</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Data Buku</td>
+                                        <td>:</td>
+                                        <td>
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Title</th>
+                                                        <th>Penerbit</th>
+                                                        <th>Tahun</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Laskar Pelangi</td>
+                                                        <td>Gramedia</td>
+                                                        <td>2009</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col text-right">
+                                <a href="{{ route('peminjaman.index') }}" class="btn btn-primary">Kembali</a>
                             </div>
                         </div>
                     </div>
@@ -163,6 +162,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 @endsection

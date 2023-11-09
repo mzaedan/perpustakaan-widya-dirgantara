@@ -73,7 +73,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{ route('user.index') }}" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
                   <p>
                       Data Pengguna
@@ -81,7 +81,7 @@
               </a>
             </li>
             <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('denda.index') }}" class="nav-link">
               <i class="nav-icon fas fa-money-bill"></i>
                 <p>
                     Denda

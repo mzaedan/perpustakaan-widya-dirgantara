@@ -3,9 +3,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DendaController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Models\Peminjaman;
 use App\Models\Rak;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +37,6 @@ Route::prefix('admin')
         Route::resource('kategori', KategoriController::class);
         Route::resource('rak', RakController::class);
         Route::resource('peminjaman', PeminjamanController::class);
+        Route::resource('denda', DendaController::class);
+        Route::resource('user', UserController::class);
     });
