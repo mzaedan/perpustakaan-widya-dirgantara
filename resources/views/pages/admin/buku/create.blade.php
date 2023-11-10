@@ -40,14 +40,22 @@
                                             <label>Kategori</label>
                                             <select class="form-control select2" required="required"  name="id_kategori">
                                                 <option disabled selected value> -- Pilih Kategori -- </option>
-                                                <option value="1"> TEST </option>
+                                                @foreach ($allKategori as $kategori)
+                                                    <option value="{{ $kategori->id }}">
+                                                        {{ $kategori->nama }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Rak/Lokasi</label>
                                             <select class="form-control select2" required="required"  name="id_rak">
                                                 <option disabled selected value> -- Pilih Rak -- </option>
-                                                <option value="1"> TEST </option>
+                                                @foreach ($allRak as $rak)
+                                                    <option value="{{ $rak->id }}">
+                                                        {{ $rak->nama }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">

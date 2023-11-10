@@ -18,10 +18,13 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
+            $table->string('tempat_lahir');
+            $table->string('tanggal_lahir');
             $table->string('jenis_kelamin');
             $table->longText('alamat');
             $table->string('nomor_telepon');
             $table->string('foto');
+            $table->string('kelas');
             $table->string('roles')->default('ANGGOTA');
 
             $table->softDeletes();

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('header-name')
-  Rak
+  User
 @endsection
 
 @section('content')
@@ -13,15 +13,19 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <a href="{{ route('rak.create') }}" class="btn btn-primary mb-3">
-                                + Tambah Rak
+                            <a href="{{ route('user.create') }}" class="btn btn-primary mb-3">
+                                + Tambah User
                             </a>
                             <div class="table-resposive">
                                 <table class="table table-hover scroll-horizontal-vertical w-100" id="crudTable">
                                     <thead>
                                         <tr>
                                             <th style="text-align: center">No</th>
+                                            <th style="text-align: center">ID</th>
+                                            <th style="text-align: center">Foto</th>
                                             <th style="text-align: center">Nama</th>
+                                            <th style="text-align: center">Email</th>
+                                             <th style="text-align: center">Level</th>
                                             <th style="text-align: center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -50,7 +54,11 @@
             },
             columns: [
                 { data : 'no', name: 'no', className: 'text-center', width: '15%' },
-                { data : 'nama', name: 'nama', className: 'text-center' },
+                { data : 'id', name: 'id', className: 'text-center' },
+                { data : 'foto', name: 'foto', className: 'text-center' },
+                { data : 'name', name: 'name', className: 'text-center' },
+                { data : 'email', name: 'email', className: 'text-center' },
+                { data : 'roles', name: 'roles', className: 'text-center' },
                 {
                     data : 'action',
                     name : 'action',

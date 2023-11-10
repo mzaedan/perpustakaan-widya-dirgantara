@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BukuRequest;
 use App\Models\Buku;
+use App\Models\Kategori;
+use App\Models\Rak;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Str;
@@ -64,7 +66,13 @@ class BukuController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.buku.create');
+        $allKategori = Kategori::all();
+        $allRak = Rak::all();
+
+        return view('pages.admin.buku.create', [
+            'allKategori' => $allKategori,
+            'allRak' => $allRak,
+        ]);
     }
 
     /**
@@ -74,7 +82,7 @@ class BukuController extends Controller
     {
         $data = $request->all();
 
-        $data['kode_buku'] =  'BK001';
+        $data['kode_buku'] = 'BK' . str_pad(Buku::count() + 1, 3, '0', STR_PAD_LEFT);
 
         $data['sampul'] = $request->file('sampul')->store('assets/sampul', 'public');
         $data['lampiran'] = $request->file('lampiran')->store('assets/lampiran', 'public');

@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BukuRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,17 +22,17 @@ class BukuRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => 'required|string',
-            'id_kategori' => 'required|integer',
-            'id_rak' => 'required|integer',
-            'kode_buku' => 'string',
-            'tahun_buku' => 'integer',
-            'isbn' => 'string',
-            'penerbit' => 'string',
-            'pengarang' => 'string',
-            'sampul' => 'image',
-            'lampiran' => 'file|mimes:pdf,docx,doc',
-            'jumlah' => 'integer'
+            'name',
+            'email',
+            'password',
+            'tempat_lahir',
+            'tanggal_lahir',
+            'jenis_kelamin',
+            'alamat',
+            'nomor_telepon',
+            'foto',
+            'kelas',
+            'roles',
         ];
     }
 }

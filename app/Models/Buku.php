@@ -13,6 +13,16 @@ class Buku extends Model
     protected $table = 'buku';
 
     protected $fillable = [
-        'nama' , 'id_kategori', 'id_rak', 'sampul', 'isbn', 'lampiran', 'penerbit', 'pengarang', 'tahun_buku', 'isi', 'jumlah'
+        'nama' , 'id_kategori', 'id_rak', 'sampul', 'isbn', 'lampiran', 'penerbit', 'pengarang', 'tahun_buku', 'isi', 'jumlah', 'kode_buku', 'keterangan'
     ];
+
+    public function kategori()
+    {
+        return $this->hasOne(User::class, 'id', 'id_kategori');
+    }
+
+    public function rak()
+    {
+
+    }
 }
