@@ -55,12 +55,12 @@
                 url: '{!! url()->current() !!}',
             },
             columns: [
-                { data : 'no', name: 'no' },
-                { data : 'kode_peminjaman', name: 'kode_peminjaman' },
-                { data : 'id_anggota', name: 'id_anggota' },
-                { data : 'id_anggota', name: 'id_anggota' },
-                { data : 'tanggal_peminjaman', name: 'tanggal_peminjaman' },
-                { data : 'tanggal_harus_dikembalikan', name: 'tanggal_harus_dikembalikan' },
+                { data : 'no', name: 'no', className: 'text-center' },
+                { data : 'kode_peminjaman', name: 'kode_peminjaman', className: 'text-center' },
+                { data : 'id_anggota', name: 'id_anggota', className: 'text-center'},
+                { data : 'id_anggota', name: 'id_anggota', className: 'text-center' },
+                { data : 'tanggal_peminjaman', name: 'tanggal_peminjaman', className: 'text-center' },
+                { data : 'tanggal_harus_dikembalikan', name: 'tanggal_harus_dikembalikan', className: 'text-center' },
                 { data : 'no', name: 'no' },
                 { data : 'no', name: 'no' },
                 {
@@ -68,7 +68,8 @@
                     name : 'action',
                     orderable : false,
                     searcable : false,
-                    width: '15%'
+                    width: '15%',
+                    className: 'text-center'
                 },
             ]
         })

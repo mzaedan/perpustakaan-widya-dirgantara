@@ -60,7 +60,17 @@
                 { data : 'penerbit', name: 'penerbit' },
                 { data : 'tahun_buku', name: 'tahun_buku' },
                 { data : 'jumlah', name: 'jumlah' },
-                { data : 'nama', name: 'nama' },
+                { 
+                    data : 'created_at', 
+                    name: 'created_at',
+                    render: function(data) {
+                        var date = new Date(data);
+                        var day = date.getDate();
+                        var month = date.toLocaleString('default', { month: 'long' });
+                        var year = date.getFullYear();
+                        return day + ' ' + month + ' ' + year;
+                    }
+                },
                 {
                     data : 'action',
                     name : 'action',

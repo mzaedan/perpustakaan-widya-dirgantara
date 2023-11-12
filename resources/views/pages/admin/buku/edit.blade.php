@@ -31,8 +31,10 @@
                                         <div class="form-group">
                                             <label>Kategori</label>
                                             <select class="form-control select2" required="required"  name="id_kategori">
-                                                <option disabled selected value> -- Pilih Kategori -- </option>
-                                                <option value="1"> TEST </option>
+                                                <option value="{{ $item->kategori->nama }}" selected>{{ $item->kategori->nama }}</option>
+                                                @foreach ($allKategori as $kategori)
+                                                    <option value="{{ $kategori->nama }}">{{ $kategori->nama }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">

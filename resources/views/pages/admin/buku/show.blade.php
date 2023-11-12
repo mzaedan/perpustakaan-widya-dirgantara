@@ -44,15 +44,23 @@
                                 </tr>
                                 <tr>
                                     <th style="width: 180px">Tanggal Masuk</th>
-                                    <td>{{ $item->tanggal_masuk  }}</td>
+                                    <td>{{ date('d F Y', strtotime($item->created_at)) }}</td>
                                 </tr>
                                 <tr>
                                     <th style="width: 180px">Sampul</th>
-                                    <td>{{ $item->sampul  }}</td>
-                                </tr> 
+                                    <td>
+                                        <a href="{{ asset('storage/'.$item->sampul) }}" download target="_blank">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th style="width: 180px">Lampiran</th>
-                                    <td>{{ $item->lampiran  }}</td>
+                                    <td>
+                                        <a href="{{ asset('storage/'.$item->lampiran) }}" download target="_blank">
+                                            <i class="fas fa-download"></i>
+                                        </a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th style="width: 180px">Jumlah</th>
@@ -60,8 +68,8 @@
                                 </tr>
                                 <tr>
                                     <th style="width: 180px">Keterangan</th>
-                                    <td>{{ $item->Keterangan  }}</td>
-                                </tr> 
+                                    <td>{!! $item->keterangan  !!}</td>
+                                </tr>
                             </table>
                         </div>
                         <div class="card-footer">

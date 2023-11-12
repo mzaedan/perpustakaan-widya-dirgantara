@@ -49,8 +49,12 @@ class UserController extends Controller
                     static $count = 1;
                     return $count++;
                 })
+
+                ->editColumn('foto', function($item){
+                    return $item->foto ? '<img src="'. asset('storage/'.$item->foto) .'" style="max-height: 100px;"/>' : '';
+                })
                
-                ->rawColumns(['action','no'])
+                ->rawColumns(['action','no', 'foto'])
                 ->make();
 
         }
@@ -109,6 +113,15 @@ class UserController extends Controller
 
         $item = User::findOrFail($id);
 
+        if($request->password)
+        {
+            $data['password'] = bcrypt($request->password);
+        }
+        else{
+
+            unset($data['password']);
+        }
+
         $item->update($data);
 
         return redirect()->route('user.index');
@@ -122,6 +135,6 @@ class UserController extends Controller
         $item = User::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('rak.index');
+        return redirect()->route('user.index');
     }
 }

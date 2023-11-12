@@ -51,16 +51,17 @@
                 url: '{!! url()->current() !!}',
             },
             columns: [
-                { data : 'no', name: 'no' },
-                { data : 'harga_denda', name: 'harga_denda' },
-                { data : 'status', name: 'status' },
-                { data : 'tanggal_tetap', name: 'tanggal_tetap' },
+                { data : 'no', name: 'no', className: 'text-center' },
+                { data : 'harga_denda', name: 'harga_denda', className: 'text-center'},
+                { data : 'status', name: 'status', className: 'text-center'},
+                { data : 'tanggal_tetap', name: 'tanggal_tetap', className: 'text-center'},
                 {
                     data : 'action',
                     name : 'action',
                     orderable : false,
                     searcable : false,
-                    width: '15%'
+                    width: '15%',
+                    className: 'text-center'
                 },
             ]
         })

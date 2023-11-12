@@ -111,8 +111,13 @@ class BukuController extends Controller
     {
         $item = Buku::findOrFail($id);
 
+        $allKategori = Kategori::all();
+        $allRak = Rak::all();
+
         return view('pages.admin.buku.edit',[
-            'item' => $item
+            'item' => $item,
+            'allKategori' => $allKategori,
+            'allRak' => $allRak,
         ]);
     }
 

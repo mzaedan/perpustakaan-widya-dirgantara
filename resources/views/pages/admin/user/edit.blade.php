@@ -26,6 +26,7 @@
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ route('user.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+                                @method('PUT')
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -47,7 +48,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Password</label>
-                                            <input type="password" class="form-control" name="password" placeholder="Password" value="{{ $item->password }}">
+                                            <input type="password" class="form-control" name="password" placeholder="Password">
+                                            <small>Kosongkan Jika Tidak Akan Ganti Password</small>
                                         </div>
                                         <div class="form-group">
                                             <label>Roles</label>

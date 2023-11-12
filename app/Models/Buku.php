@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Kategori;
 
 class Buku extends Model
 {
@@ -18,7 +19,7 @@ class Buku extends Model
 
     public function kategori()
     {
-        return $this->hasOne(User::class, 'id', 'id_kategori');
+        return $this->hasOne(Kategori::class, 'id', 'id_kategori');
     }
 
     public function rak()
