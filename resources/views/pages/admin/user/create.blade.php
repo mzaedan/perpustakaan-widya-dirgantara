@@ -52,8 +52,8 @@
                                         <div class="form-group">
                                             <label>Roles</label>
                                             <select name="roles" class="form-select" required="required">
-                                                <option>Petugas</option>
-                                                <option>Anggota</option>
+                                                <option value="ADMIN">ADMIN</option>
+                                                <option value="ANGGOTA">ANGGOTA</option>
                                             </select>
                                         </div>
                                     </div>
@@ -65,8 +65,8 @@
                                         <div class="form-group">
                                             <label>Jenis Kelamin</label>
                                             <select name="jenis_kelamin" class="form-select" required="required">
-                                                <option>Laki-Laki</option>
-                                                <option>Perempuan</option>
+                                                <option value="Laki-Laki">Laki-Laki</option>
+                                                <option value="Perempuan">Perempuan</option>
                                             </select>
                                         </div>
                                         <div class="form-group">

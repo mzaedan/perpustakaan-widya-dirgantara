@@ -33,12 +33,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/peminjaman/index-pengembalian', [PeminjamanController::class, 'index_pengembalian'])->name('index_pengembalian');
 
 
+Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
-
+Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman-amggota');
 
 Route::prefix('admin')
     ->namespace('App\Http\Controllers\Admin')
-    // ->middleware(['auth', 'admin'])
+    ->middleware(['auth', 'admin'])
     ->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin-dashboard');
         Route::resource('buku', BukuController::class);
@@ -46,7 +47,7 @@ Route::prefix('admin')
         Route::resource('rak', RakController::class);
         Route::resource('peminjaman', PeminjamanController::class);
         Route::get('/peminjaman/pengembalian/{id}', [PeminjamanController::class, 'pengembalian'])->name('peminjaman.pengembalian');
-        
         Route::resource('denda', DendaController::class);
         Route::resource('user', UserController::class);
     });
+
