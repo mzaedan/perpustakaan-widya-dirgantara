@@ -29,10 +29,7 @@ class KategoriController extends Controller
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="' . route('kategori.edit', $item->id). '">
-                                        Detail
-                                    </a>
-                                    <a class="dropdown-item" href="' . route('kategori.edit', $item->id). '">
-                                        Detail
+                                        Edit
                                     </a>
                                     <form action="'. route('kategori.destroy', $item->id) .'" method="POST" onsubmit="return confirm(\'Apakah Anda Ingin Menghapus Data Ini?\')">
                                         '. method_field('delete') . csrf_field() . '
@@ -92,7 +89,7 @@ class KategoriController extends Controller
     {
         $item = Kategori::findOrFail($id);
 
-        return view('pages.admin.katgori.edit',[
+        return view('pages.admin.kategori.edit',[
             'item' => $item
         ]);
     }

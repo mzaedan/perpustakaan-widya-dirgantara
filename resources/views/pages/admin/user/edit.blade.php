@@ -54,8 +54,8 @@
                                         <div class="form-group">
                                             <label>Roles</label>
                                             <select name="roles" class="form-select" required="required">
-                                                <option>Petugas</option>
-                                                <option>Anggota</option>
+                                                <option value="ADMIN">ADMIN</option>
+                                                <option value="ANGGOTA">ANGGOTA</option>
                                             </select>
                                         </div>
                                     </div>

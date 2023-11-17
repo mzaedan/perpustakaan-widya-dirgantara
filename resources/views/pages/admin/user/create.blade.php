@@ -82,8 +82,6 @@
                                             <textarea class="form-control" name="alamat" required="required"></textarea>
                                         </div>
                                     </div>
-                                    
-                                    
                                 </div>
                                 <div class="row">
                                     <div class="col text-right">
