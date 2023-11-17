@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DendaController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PeminjamanController;
+use App\Http\Controllers\DashboardPeminjamanController;
 
 use App\Models\Peminjaman;
 use App\Models\Rak;
@@ -36,6 +37,13 @@ Route::get('/peminjaman/index-pengembalian', [PeminjamanController::class, 'inde
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
 Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman-amggota');
+
+Route::group(['middleware' => ['auth']], function(){
+
+    Route::get('/peminjaman', [App\Http\Controllers\DashboardPeminjamanController::class, 'index'])->name('dashboard');
+
+});
+
 
 Route::prefix('admin')
     ->namespace('App\Http\Controllers\Admin')

@@ -1,7 +1,7 @@
-@extends('layouts.admin')
+@extends('layouts.anggota')
 
 @section('header-name')
-  Peminjaman
+  Pengembalian
 @endsection
 
 @section('content')
@@ -24,6 +24,7 @@
                                             <th style="text-align: center">Tanggal Peminjaman</th>
                                             <th style="text-align: center">Tanggal Harus Dikembalikan</th>
                                             <th style="text-align: center">Status</th>
+                                            <th style="text-align: center">Tanggal Kembali</th>
                                             <th style="text-align: center">Denda</th>
                                             <th style="text-align: center">Aksi</th>
                                         </tr>
@@ -58,6 +59,7 @@
                 { data : 'id_anggota', name: 'id_anggota', className: 'text-center' },
                 { data : 'tanggal_peminjaman', name: 'tanggal_peminjaman', className: 'text-center' },
                 { data : 'tanggal_harus_dikembalikan', name: 'tanggal_harus_dikembalikan', className: 'text-center' },
+                { data : 'no', name: 'no' },
                 { data : 'no', name: 'no' },
                 { data : 'no', name: 'no' },
                 {

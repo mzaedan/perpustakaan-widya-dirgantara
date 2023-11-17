@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Peminjaman;
@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admin\PeminjamanRequest;
 use Yajra\DataTables\DataTables;
 
-class PeminjamanController extends Controller
+class DashboardPeminjamanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -54,7 +54,7 @@ class PeminjamanController extends Controller
                 ->make();
 
         }
-        return view('pages.admin.peminjaman.index');
+        return view('dashboard-peminjaman');
     }
 
     public function index_pengembalian()
@@ -108,7 +108,7 @@ class PeminjamanController extends Controller
      */
     public function create()
     {
-        
+        return view('pages.admin.peminjaman.create');
     }
 
     /**
@@ -116,7 +116,11 @@ class PeminjamanController extends Controller
      */
     public function store(PeminjamanRequest $request)
     {
-        
+        $data = $request->all();
+
+        Peminjaman::create($data);
+
+        return redirect()->route('peminjaman.index');
     }
 
     /**
@@ -124,12 +128,20 @@ class PeminjamanController extends Controller
      */
     public function show(string $id)
     {
-       
+        $item = Peminjaman::findOrFail($id);
+
+        return view('pages.admin.peminjaman.show',[
+            'item' => $item
+        ]);
     }
 
     public function pengembalian(string $id)
     {
-       
+        $item = Peminjaman::findOrFail($id);
+
+        return view('pages.admin.peminjaman.pengembalian',[
+            'item' => $item
+        ]);
     }
 
     /**
@@ -153,6 +165,9 @@ class PeminjamanController extends Controller
      */
     public function destroy(string $id)
     {
-        
+        $item = Peminjaman::findOrFail($id);
+        $item->delete();
+
+        return redirect()->route('peminjaman.index');
     }
 }

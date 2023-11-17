@@ -107,23 +107,22 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserRequest $request, string $id)
     {
         $data = $request->all();
-
         $item = User::findOrFail($id);
 
-        if($request->password)
-        {
-            $data['password'] = bcrypt($request->password);
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('assets/foto', 'public');
         }
-        else{
 
+        if ($request->password) {
+            $data['password'] = bcrypt($request->password);
+        } else {
             unset($data['password']);
         }
 
         $item->update($data);
-
         return redirect()->route('user.index');
     }
 
