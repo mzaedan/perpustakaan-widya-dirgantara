@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function(){
 
 });
 
+Route::get('user/cetak-kartu', [App\Http\Controllers\Admin\UserController::class, 'cetak_pdf'])->name('cetak-kartu');
 
 Route::prefix('admin')
     ->namespace('App\Http\Controllers\Admin')
@@ -57,5 +58,6 @@ Route::prefix('admin')
         Route::get('/peminjaman/pengembalian/{id}', [PeminjamanController::class, 'pengembalian'])->name('peminjaman.pengembalian');
         Route::resource('denda', DendaController::class);
         Route::resource('user', UserController::class);
+        
     });
 

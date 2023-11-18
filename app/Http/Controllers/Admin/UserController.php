@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Requests\Admin\UserRequest;
+Use Barryvdh\DomPDF\PDF;
 
 class UserController extends Controller
 {
@@ -28,7 +29,7 @@ class UserController extends Controller
                                     Aksi
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="' . route('user.show', $item->id). '">
+                                    <a class="dropdown-item" href="' . route('cetak-kartu'). '">
                                         Detail
                                     </a>
                                     <a class="dropdown-item" href="' . route('user.edit', $item->id). '">
@@ -135,5 +136,15 @@ class UserController extends Controller
         $item->delete();
 
         return redirect()->route('user.index');
+    }
+    
+
+    public function cetak_pdf(PDF $pdf)
+    {
+        $allUser = User::all();
+    
+        $pdf = $pdf->loadview('pages.admin.user.cetak_kartu',['allUser'=>$allUser]);
+
+        return $pdf->stream('laporan-cetak-pdf');
     }
 }
