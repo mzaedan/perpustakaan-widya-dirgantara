@@ -57,35 +57,37 @@
                     <div class="row">
                         <div class="col-sm-8">
                             <table class="table table-stripped">
-                                <tr>
-                                    <td>ID Anggota</td>
-                                    <td>:</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>Nama</td>
-                                    <td>:</td>
-                                    <td>Zidan</td>
-                                </tr>
-                                <tr>
-                                    <td>TTL</td>
-                                    <td>:</td>
-                                    <td>Bandung</td>
-                                </tr>
-                                <tr>
-                                    <td>Alamat</td>
-                                    <td>:</td>
-                                    <td>Bandung</td>
-                                </tr>
-                                <tr>
-                                    <td>Tgl Bergabung</td>
-                                    <td>:</td>
-                                    <td>12 Januari 2022</td>
-                                </tr>
+                                @if (is_object($alluser))
+                                    <tr>
+                                        <td>ID Anggota</td>
+                                        <td>:</td>
+                                        <td>{{ $alluser->id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nama</td>
+                                        <td>:</td>
+                                        <td>{{ $alluser->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tempat Tanggal Lahir</td>
+                                        <td>:</td>
+                                        <td>{{ $alluser->tempat_lahir }},{{ date('d-m-Y', strtotime($alluser->tanggal_lahir)) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alamat</td>
+                                        <td>:</td>
+                                        <td>{{ $alluser->alamat }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tgl Bergabung</td>
+                                        <td>:</td>
+                                        <td>{{ date('d-m-Y', strtotime($alluser->created_at)) }}</td>
+                                    </tr>
+                                @endif
                             </table>
                         </div>
                         <div class="row-no-gutters text-right" style="margin-right: 50px; margin-bottom:100px; margin-top:-220px" >
-                            <img src="{{ url('backend/dist/img/user2-160x160.jpg') }}" style="width:3cm;height:4cm;" class="img-responsive">
+                            <img src="{{ asset('storage/'.$alluser->foto) }}" style="width:3cm;height:4cm;" class="img-responsive">
                         </div>
                     </div>
                 </div>

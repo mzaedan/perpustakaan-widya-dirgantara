@@ -41,10 +41,12 @@ Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjam
 Route::group(['middleware' => ['auth']], function(){
 
     Route::get('/peminjaman', [App\Http\Controllers\DashboardPeminjamanController::class, 'index'])->name('dashboard');
-
+    Route::get('user/cetak-kartu/{id}', [App\Http\Controllers\Admin\UserController::class, 'cetak_pdf'])->name('cetak-kartu');
 });
 
-Route::get('user/cetak-kartu', [App\Http\Controllers\Admin\UserController::class, 'cetak_pdf'])->name('cetak-kartu');
+
+
+
 
 Route::prefix('admin')
     ->namespace('App\Http\Controllers\Admin')
@@ -58,6 +60,7 @@ Route::prefix('admin')
         Route::get('/peminjaman/pengembalian/{id}', [PeminjamanController::class, 'pengembalian'])->name('peminjaman.pengembalian');
         Route::resource('denda', DendaController::class);
         Route::resource('user', UserController::class);
+        
         
     });
 
