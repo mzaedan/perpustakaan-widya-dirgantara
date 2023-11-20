@@ -17,7 +17,7 @@ class PeminjamanController extends Controller
     {
         if(request()->ajax())
         {
-            $query = Peminjaman::query();
+            $query = Peminjaman::query()->where('status', 'Dipinjam');;
 
             return DataTables::of($query)
                 ->addColumn('action', function($item) {
@@ -28,9 +28,12 @@ class PeminjamanController extends Controller
                                     Aksi
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="' . route('peminjaman.pengembalian', $item->id). '">
-                                        Kembalikan
-                                    </a>
+                                    <form action="'. route('peminjaman-kembali', $item->id) .'" method="POST" onsubmit="return confirm(\'Apakah Anda Ingin Mengembalikan Buku Ini?\')">
+                                        '. method_field('POST') . csrf_field() . '
+                                        <button type="submit" class="dropdown-item">
+                                            Kembalikan
+                                        </button>
+                                    </form>
                                     <a class="dropdown-item" href="' . route('peminjaman.show', $item->id). '">
                                         Detail
                                     </a>
@@ -61,7 +64,7 @@ class PeminjamanController extends Controller
     {
         if(request()->ajax())
         {
-            $query = Peminjaman::query();
+            $query = Peminjaman::query()->where('status', 'Dikembalikan');
 
             return DataTables::of($query)
                 ->addColumn('action', function($item) {
@@ -72,9 +75,6 @@ class PeminjamanController extends Controller
                                     Aksi
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="' . route('peminjaman.pengembalian', $item->id). '">
-                                        Kembalikan
-                                    </a>
                                     <a class="dropdown-item" href="' . route('peminjaman.show', $item->id). '">
                                         Detail
                                     </a>
@@ -117,6 +117,8 @@ class PeminjamanController extends Controller
     public function store(PeminjamanRequest $request)
     {
         $data = $request->all();
+
+        $data['status'] = 'Dipinjam';
 
         Peminjaman::create($data);
 
@@ -170,4 +172,13 @@ class PeminjamanController extends Controller
 
         return redirect()->route('peminjaman.index');
     }
+
+    public function kembali($id)
+{
+    $peminjaman = Peminjaman::findOrFail($id);
+    $peminjaman->status = 'Dikembalikan';
+    $peminjaman->save();
+
+    return redirect()->route('peminjaman.index')->with('success', 'Peminjaman berhasil dikembalikan');
+}
 }

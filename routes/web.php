@@ -31,7 +31,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/peminjaman/index-pengembalian', [PeminjamanController::class, 'index_pengembalian'])->name('index_pengembalian');
 
 
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
@@ -40,6 +39,9 @@ Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjam
 
 Route::group(['middleware' => ['auth']], function(){
 
+    
+    Route::get('/peminjaman/index-pengembalian', [PeminjamanController::class, 'index_pengembalian'])->name('index_pengembalian');
+    Route::post('/peminjaman/kembali/{id}', [PeminjamanController::class, 'kembali'])->name('peminjaman-kembali');
     Route::get('/peminjaman', [App\Http\Controllers\DashboardPeminjamanController::class, 'index'])->name('dashboard');
     Route::get('user/cetak-kartu/{id}', [App\Http\Controllers\Admin\UserController::class, 'cetak_pdf'])->name('cetak-kartu');
 });

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\PeminjamanRequest;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class DashboardPeminjamanController extends Controller
@@ -17,7 +18,7 @@ class DashboardPeminjamanController extends Controller
     {
         if(request()->ajax())
         {
-            $query = Peminjaman::query();
+            $query = Peminjaman::with(['user'])->where('id_users', Auth::user()->id);
 
             return DataTables::of($query)
                 ->addColumn('action', function($item) {
