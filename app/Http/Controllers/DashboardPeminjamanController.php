@@ -14,7 +14,7 @@ class DashboardPeminjamanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index_peminjaman()
     {
         if(request()->ajax())
         {
@@ -58,11 +58,11 @@ class DashboardPeminjamanController extends Controller
         return view('dashboard-peminjaman');
     }
 
-    public function index_pengembalian()
+    public function pengembalian()
     {
         if(request()->ajax())
         {
-            $query = Peminjaman::query();
+            $query = Peminjaman::with(['user'])->where('id_users', Auth::user()->id);
 
             return DataTables::of($query)
                 ->addColumn('action', function($item) {
@@ -100,7 +100,7 @@ class DashboardPeminjamanController extends Controller
 
         }
         
-        return view('pages.admin.peminjaman.index-pengembalian');
+        return view('dashboard-pengembalian');
     }
     
 
@@ -135,16 +135,6 @@ class DashboardPeminjamanController extends Controller
             'item' => $item
         ]);
     }
-
-    public function pengembalian(string $id)
-    {
-        $item = Peminjaman::findOrFail($id);
-
-        return view('pages.admin.peminjaman.pengembalian',[
-            'item' => $item
-        ]);
-    }
-
     /**
      * Show the form for editing the specified resource.
      */

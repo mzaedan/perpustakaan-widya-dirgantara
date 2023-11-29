@@ -6,11 +6,14 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DendaController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PeminjamanController;
+use App\Http\Controllers\BukuAnggotaController;
+use App\Http\Controllers\CekRoleController;
 use App\Http\Controllers\DashboardPeminjamanController;
-
+use App\Http\Controllers\UserAnggotaController;
 use App\Models\Peminjaman;
 use App\Models\Rak;
 use App\Models\User;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,11 +41,17 @@ Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout
 Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman-amggota');
 
 Route::group(['middleware' => ['auth']], function(){
+    Route::get('/cek-role', CekRoleController::class);
+    Route::get('/peminjaman/index-peminjaman', [DashboardPeminjamanController::class, 'index_peminjaman'])->name('index-peminjaman');
+    Route::get('/peminjaman/pengembalian', [DashboardPeminjamanController::class, 'pengembalian'])->name('index-pengembalian-anggota');
+
 
     
-    Route::get('/peminjaman/index-pengembalian', [PeminjamanController::class, 'index_pengembalian'])->name('index_pengembalian');
+    Route::get('/buku/index', [BukuAnggotaController::class, 'index'])->name('index-buku');
+    Route::get('/user/index', [UserAnggotaController::class, 'index'])->name('index-user');
+    Route::get('/peminjaman/index-pengembalian', [PeminjamanController::class, 'index_pengembalian'])->name('index-pengembalian-admin');
     Route::post('/peminjaman/kembali/{id}', [PeminjamanController::class, 'kembali'])->name('peminjaman-kembali');
-    Route::get('/peminjaman', [App\Http\Controllers\DashboardPeminjamanController::class, 'index'])->name('dashboard');
+
     Route::get('user/cetak-kartu/{id}', [App\Http\Controllers\Admin\UserController::class, 'cetak_pdf'])->name('cetak-kartu');
 });
 
@@ -62,6 +71,7 @@ Route::prefix('admin')
         Route::get('/peminjaman/pengembalian/{id}', [PeminjamanController::class, 'pengembalian'])->name('peminjaman.pengembalian');
         Route::resource('denda', DendaController::class);
         Route::resource('user', UserController::class);
+        
         
         
     });

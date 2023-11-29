@@ -29,11 +29,14 @@ class UserController extends Controller
                                     Aksi
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="' . route('cetak-kartu', $item->id). '">
-                                        Detail
+                                    <a class="dropdown-item" href="' . route('cetak-kartu', $item->id). '" target="_blank">
+                                        Cetak Kartu
                                     </a>
                                     <a class="dropdown-item" href="' . route('user.edit', $item->id). '">
                                         Edit
+                                    </a>
+                                    <a class="dropdown-item" href="' . route('user.show', $item->id). '">
+                                        Detail
                                     </a>
                                     <form action="'. route('user.destroy', $item->id) .'" method="POST" onsubmit="return confirm(\'Apakah Anda Ingin Menghapus Data Ini?\')">
                                         '. method_field('delete') . csrf_field() . '
@@ -90,7 +93,11 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $item = User::findOrFail($id);
+
+        return view('pages.admin.user.show',[
+            'item' => $item
+        ]);
     }
 
     /**

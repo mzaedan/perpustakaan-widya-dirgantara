@@ -18,7 +18,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{ route('index-peminjaman') }}" class="nav-link">
                   <i class="nav-icon fas fa-upload"></i>
                     <p>
                         Data Peminjaman
@@ -26,7 +26,7 @@
               </a>
           </li>
           <li class="nav-item">
-              <a href="{{ route('index_pengembalian') }}" class="nav-link">
+              <a href="{{ route('index-pengembalian-anggota') }}" class="nav-link">
                   <i class="nav-icon fas fa-upload"></i>
                     <p>
                         Data Pengembalian
@@ -34,7 +34,7 @@
               </a>
           </li>
           <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{ route('index-buku') }}" class="nav-link">
                   <i class="nav-icon fas fa-search"></i>
                     <p>
                         Cari Buku
@@ -42,18 +42,10 @@
               </a>
           </li>
           <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{ route('index-user') }}" class="nav-link">
                   <i class="nav-icon fas fa-user"></i>
                     <p>
                         Data Anggota
-                    </p>
-              </a>
-          </li>
-          <li class="nav-item">
-              <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-print"></i>
-                    <p>
-                        Cetak Kartu Anggota
                     </p>
               </a>
           </li>
