@@ -69,7 +69,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('index-pengembalian-admin') }}" class="nav-link">
+                  <a href="#" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Pengembalian</p>
                   </a>

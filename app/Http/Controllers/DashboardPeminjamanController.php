@@ -55,7 +55,7 @@ class DashboardPeminjamanController extends Controller
                 ->make();
 
         }
-        return view('dashboard-peminjaman');
+        return view('anggota-peminjaman');
     }
 
     public function pengembalian()
@@ -100,7 +100,7 @@ class DashboardPeminjamanController extends Controller
 
         }
         
-        return view('dashboard-pengembalian');
+        return view('anggota-pengembalian');
     }
     
 

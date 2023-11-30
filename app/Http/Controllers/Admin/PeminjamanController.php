@@ -28,7 +28,7 @@ class PeminjamanController extends Controller
                                     Aksi
                                 </button>
                                 <div class="dropdown-menu">
-                                    <form action="'. route('peminjaman-kembali', $item->id) .'" method="POST" onsubmit="return confirm(\'Apakah Anda Ingin Mengembalikan Buku Ini?\')">
+                                    <form action="'. route('kembalikan', $item->id) .'" method="POST" onsubmit="return confirm(\'Apakah Anda Ingin Mengembalikan Buku Ini?\')">
                                         '. method_field('POST') . csrf_field() . '
                                         <button type="submit" class="dropdown-item">
                                             Kembalikan
@@ -60,7 +60,7 @@ class PeminjamanController extends Controller
         return view('pages.admin.peminjaman.index');
     }
 
-    public function index_pengembalian()
+    public function pengembalian()
     {
         if(request()->ajax())
         {
@@ -137,14 +137,14 @@ class PeminjamanController extends Controller
         ]);
     }
 
-    public function pengembalian(string $id)
-    {
-        $item = Peminjaman::findOrFail($id);
+    // public function pengembalian(string $id)
+    // {
+    //     $item = Peminjaman::findOrFail($id);
 
-        return view('pages.admin.peminjaman.pengembalian',[
-            'item' => $item
-        ]);
-    }
+    //     return view('pages.admin.peminjaman.pengembalian',[
+    //         'item' => $item
+    //     ]);
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -173,12 +173,12 @@ class PeminjamanController extends Controller
         return redirect()->route('peminjaman.index');
     }
 
-    public function kembali($id)
-{
-    $peminjaman = Peminjaman::findOrFail($id);
-    $peminjaman->status = 'Dikembalikan';
-    $peminjaman->save();
+    public function kembalikan($id)
+    {
+        $peminjaman = Peminjaman::findOrFail($id);
+        $peminjaman->status = 'Dikembalikan';
+        $peminjaman->save();
 
-    return redirect()->route('peminjaman.index')->with('success', 'Peminjaman berhasil dikembalikan');
-}
+        return redirect()->route('peminjaman.index')->with('success', 'Peminjaman berhasil dikembalikan');
+    }
 }

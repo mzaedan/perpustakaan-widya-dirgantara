@@ -41,22 +41,27 @@ Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout
 Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman-amggota');
 
 Route::group(['middleware' => ['auth']], function(){
+    //Cek Role
     Route::get('/cek-role', CekRoleController::class);
+
+    //Buku
+    Route::get('/buku/index', [BukuAnggotaController::class, 'index'])->name('index-buku');
+
+    //Peminjaman dan Pengembalian ADMIN
+    Route::get('/pengembalian', [PeminjamanController::class, 'pengembalian'])->name('pengembalian');
+    Route::post('/peminjaman/kembali/{id}', [PeminjamanController::class, 'kembalikan'])->name('kembalikan');
+
+
+
     Route::get('/peminjaman/index-peminjaman', [DashboardPeminjamanController::class, 'index_peminjaman'])->name('index-peminjaman');
     Route::get('/peminjaman/pengembalian', [DashboardPeminjamanController::class, 'pengembalian'])->name('index-pengembalian-anggota');
-
-
     
-    Route::get('/buku/index', [BukuAnggotaController::class, 'index'])->name('index-buku');
     Route::get('/user/index', [UserAnggotaController::class, 'index'])->name('index-user');
-    Route::get('/peminjaman/index-pengembalian', [PeminjamanController::class, 'index_pengembalian'])->name('index-pengembalian-admin');
-    Route::post('/peminjaman/kembali/{id}', [PeminjamanController::class, 'kembali'])->name('peminjaman-kembali');
-
+    Route::get('/user/edit/{id}', [UserAnggotaController::class, 'edit'])->name('edit-user');
+    Route::get('/user/update', [UserAnggotaController::class, 'update'])->name('update-user');
+    
     Route::get('user/cetak-kartu/{id}', [App\Http\Controllers\Admin\UserController::class, 'cetak_pdf'])->name('cetak-kartu');
 });
-
-
-
 
 
 Route::prefix('admin')
@@ -71,8 +76,5 @@ Route::prefix('admin')
         Route::get('/peminjaman/pengembalian/{id}', [PeminjamanController::class, 'pengembalian'])->name('peminjaman.pengembalian');
         Route::resource('denda', DendaController::class);
         Route::resource('user', UserController::class);
-        
-        
-        
     });
 

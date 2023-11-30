@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Yajra\DataTables\DataTables;
+use App\Http\Requests\Admin\UserRequest;
 use Barryvdh\DomPDF\PDF;
 
 class UserAnggotaController extends Controller
@@ -30,7 +31,7 @@ class UserAnggotaController extends Controller
                                     <a class="dropdown-item" href="' . route('user.show', $item->id). '">
                                         Detail
                                     </a>
-                                    <a class="dropdown-item" href="' . route('user.edit', $item->id). '">
+                                    <a class="dropdown-item" href="' . route('edit-user', $item->id). '">
                                         Edit
                                     </a>
                                 </div>
@@ -52,5 +53,33 @@ class UserAnggotaController extends Controller
 
         }
         return view('user-buku');
+    }
+
+    public function edit(string $id)
+    {
+        $item = User::findOrFail($id);
+
+        return view('pages.admin.user.edit',[
+            'item' => $item
+        ]);
+    }
+
+    public function update(UserRequest $request, string $id)
+    {
+        $data = $request->all();
+        $item = User::findOrFail($id);
+
+        if ($request->hasFile('foto')) {
+            $data['foto'] = $request->file('foto')->store('assets/foto', 'public');
+        }
+
+        if ($request->password) {
+            $data['password'] = bcrypt($request->password);
+        } else {
+            unset($data['password']);
+        }
+
+        $item->update($data);
+        return redirect()->route('user.index');
     }
 }
