@@ -9,13 +9,12 @@ class CekRoleController extends Controller
     public function __invoke(Request $request)
     {
         $role = auth()->user()->roles;
-
         if ($role == 'ADMIN') {
-            return redirect('/admin');
+            return redirect()->route('admin-dashboard');
         } elseif ($role == 'ANGGOTA') {
-            return redirect('/peminjaman/index-peminjaman');
+            return redirect()->route('index-peminjaman-anggota');
         } else {
-            return redirect('/');
+            return redirect()->route('home');
         }
     }
 }

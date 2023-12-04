@@ -58,8 +58,10 @@ class UserAnggotaController extends Controller
     public function edit(string $id)
     {
         $item = User::findOrFail($id);
-
-        return view('pages.admin.user.edit',[
+        if ($item->id !== auth()->user()->id) {
+            abort(403);
+        }
+        return view('anggota-edit',[
             'item' => $item
         ]);
     }

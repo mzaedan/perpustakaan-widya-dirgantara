@@ -14,7 +14,7 @@ class DashboardPeminjamanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index_peminjaman()
+    public function peminjaman()
     {
         if(request()->ajax())
         {
