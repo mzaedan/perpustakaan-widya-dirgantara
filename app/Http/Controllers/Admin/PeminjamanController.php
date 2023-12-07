@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\PeminjamanRequest;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
+use app\Models\User;
 
 class PeminjamanController extends Controller
 {
@@ -108,7 +110,11 @@ class PeminjamanController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.peminjaman.create');
+        $users = User::where('id', 'kode_anggota')->get();
+
+        return view('pages.admin.peminjaman.create', [
+            'users' => $users
+        ]);
     }
 
     /**
@@ -136,15 +142,6 @@ class PeminjamanController extends Controller
             'item' => $item
         ]);
     }
-
-    // public function pengembalian(string $id)
-    // {
-    //     $item = Peminjaman::findOrFail($id);
-
-    //     return view('pages.admin.peminjaman.pengembalian',[
-    //         'item' => $item
-    //     ]);
-    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -180,5 +177,26 @@ class PeminjamanController extends Controller
         $peminjaman->save();
 
         return redirect()->route('peminjaman.index')->with('success', 'Peminjaman berhasil dikembalikan');
+    }
+
+    public function result($id)
+    {
+        $user = User::where('id', $id)->first();
+
+        if ($user) {
+            return response()->json([
+                'status' => "ok",
+                'nama' => $user->nama,
+                'telepon' => $user->telepon,
+                'email' => $user->email,
+                'alamat' => $user->alamat,
+                'level' => $user->level,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => "error",
+                'message' => 'Anggota Tidak Ditemukan!',
+            ], 200);
+        }
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('header-name')
-Detail Buku
+    Detail Buku
 @endsection
 
 @section('content')

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('header-name')
-  Detail Buku
+  Detail User
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
                         <div class="card-body">
                             <table class="table table-bordered">
                                 <tr>
-                                    <th style="width: 180px">Nama Buku</th>
+                                    <th style="width: 180px">Nama Anggota</th>
                                     <td>{{ $item->name }}</td>
                                 </tr>
                                 <tr>
