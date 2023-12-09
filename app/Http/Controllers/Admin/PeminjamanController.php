@@ -186,11 +186,11 @@ class PeminjamanController extends Controller
         if ($user) {
             return response()->json([
                 'status' => "ok",
-                'nama' => $user->nama,
-                'telepon' => $user->telepon,
+                'name' => $user->name,
+                'nomor_telepon' => $user->nomor_telepon,
                 'email' => $user->email,
                 'alamat' => $user->alamat,
-                'level' => $user->level,
+                'kelas' => $user->kelas,
             ], 200);
         } else {
             return response()->json([

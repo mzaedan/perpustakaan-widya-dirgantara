@@ -112,29 +112,6 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
-	// $(".fileSelection1 #Select_File1").click(function (event) {
-    //     // Set the input value
-    //     document.getElementsByName('id')[0].value = $(this).attr("data-id");
-
-    //     // Hide the modal
-    //     $('#TableAnggota').modal('hide');
-
-    //     // Send AJAX request
-    //     $.ajax({
-    //         type: "POST",
-    //         url: '/peminjaman/result/'+
-    //         data: {
-    //             id: $(this).attr(""), // Send data as object for cleaner code
-    //         },
-    //         beforeSend: function () {
-    //             $("#result").html(""); // Clear result before loading
-    //             $("#result_tunggu").html('<p style="color:green"><blink>tunggu sebentar</blink></p>'); // Show loading indicator
-    //         },
-    //         success: function (html) {
-    //             $("#result").html(html); // Update result with response
-    //             $("#result_tunggu").html(''); // Hide loading indicator
-    //     },
-    // });
     $(document).on('keyup', '#search-box',function(){
         let id = $(this).val();
         $.ajax({
@@ -147,8 +124,24 @@
                     let html = `<table id="example3" class="table table-bordered table-striped">
                         <tbody>
                             <tr>
-                                <th>email</th>
+                                <th>Nama</th>
+                                <td>${data.name}</td>
+                            </tr>
+                            <tr>
+                                <th>Kelas</th>
+                                <td>${data.kelas}</td>
+                            </tr>
+                            <tr>
+                                <th>Telepon</th>
+                                <td>${data.nomor_telepon}</td>
+                            </tr>
+                            <tr>
+                                <th>E-mail</th>
                                 <td>${data.email}</td>
+                            </tr>
+                            <tr>
+                                <th>Alamat</th>
+                                <td>${data.alamat}</td>
                             </tr>
                         </tbody>
                     </table>`;
