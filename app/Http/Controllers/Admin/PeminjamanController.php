@@ -209,6 +209,8 @@ class PeminjamanController extends Controller
             return response()->json([
                 'status' => "ok",
                 'nama' => $buku->nama,
+                'penerbit' => $buku->penerbit,
+                'tahun_buku' => $buku->tahun_buku,
             ], 200);
         } else {
             return response()->json([

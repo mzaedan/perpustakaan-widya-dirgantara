@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Data Buku</label>
-                                            <div id="result_tunggu"> <p style="color:red">* Belum Ada Hasil</p></div>
+                                            <div id="tunggu_buku"><p style="color:red">* Belum Ada Hasil</p></div>
                                             <div id="result_buku"></div>
                                         </div>
                                     </div>
@@ -145,23 +145,33 @@
             let result = $('#result_buku').html('');
             if (response.data.status == "ok") {
                 let html = `<table id="example3" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Title</th>
+                            <th>Penerbit</th>
+                            <th>Tahun</th>
+                        </tr>
+				    </thead>
                     <tbody>
                         <tr>
-                            <th>Nama</th>
+                            <td>1</td>
                             <td>${response.data.nama}</td>
+                            <td>${response.data.penerbit}</td>
+                            <td>${response.data.tahun_buku}</td>
                         </tr>
                     </tbody>
                 </table>`;
-                $("#result_tunggu").hide();
+                $("#tunggu_buku").hide();
                 result = html;
                 $('#result_buku').html(result);
             } else {
-                $("#result_tunggu").show();
+                $("#tunggu_buku").show();
             }
         })
         .catch(function (error) {
             let result = $('#result_buku').html('');
-            $("#result_tunggu").show();
+            $("#tunggu_buku").show();
         });
     });
 </script>
