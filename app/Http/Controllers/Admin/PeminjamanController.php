@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\PeminjamanRequest;
+use App\Models\Buku;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use app\Models\User;
@@ -136,10 +137,10 @@ class PeminjamanController extends Controller
      */
     public function show(string $id)
     {
-        $item = Peminjaman::findOrFail($id);
-
+        $item = Peminjaman::with(['user'])->findOrFail($id);
+        
         return view('pages.admin.peminjaman.show',[
-            'item' => $item
+            'item' => $item,
         ]);
     }
 
@@ -196,6 +197,23 @@ class PeminjamanController extends Controller
             return response()->json([
                 'status' => "error",
                 'message' => 'Anggota Tidak Ditemukan!',
+            ], 200);
+        }
+    }
+
+    public function Bukulist($id)
+    {
+        $buku = Buku::where('id', $id)->first();
+
+        if ($buku) {
+            return response()->json([
+                'status' => "ok",
+                'nama' => $buku->nama,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => "error",
+                'message' => 'Buku Tidak Ditemukan!',
             ], 200);
         }
     }

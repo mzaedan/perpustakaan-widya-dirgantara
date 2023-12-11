@@ -82,7 +82,7 @@ class BukuController extends Controller
     {
         $data = $request->all();
 
-        $data['kode_buku'] = 'BK' . str_pad(Buku::count() + 1, 3, '0', STR_PAD_LEFT);
+        $data['kode_buku'] = Buku::getKodeBuku();
 
         $data['sampul'] = $request->file('sampul')->store('assets/sampul', 'public');
         $data['lampiran'] = $request->file('lampiran')->store('assets/lampiran', 'public');

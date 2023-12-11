@@ -57,10 +57,55 @@
             columns: [
                 { data : 'no', name: 'no', className: 'text-center' },
                 { data : 'kode_peminjaman', name: 'kode_peminjaman', className: 'text-center' },
-                { data : 'id', name: 'id', className: 'text-center'},
-                { data : 'id', name: 'id', className: 'text-center' },
-                { data : 'tanggal_peminjaman', name: 'tanggal_peminjaman', className: 'text-center' },
-                { data : 'tanggal_harus_dikembalikan', name: 'tanggal_harus_dikembalikan', className: 'text-center' },
+                { data : 'id_users', name: 'id_users', className: 'text-center'},
+                { data : 'id_users', name: 'id_users', className: 'text-center' },
+                { 
+                    data: 'tanggal_peminjaman', 
+                    name: 'tanggal_peminjaman', 
+                    className: 'text-center',
+                    render: function(data, type, row) {
+                        // Ubah format tanggal
+                        var date = new Date(data);
+                        var day = date.getDate();
+                        var month = date.getMonth() + 1;
+                        var year = date.getFullYear();
+
+                        if (day < 10) {
+                            day = '0' + day;
+                        }
+                        if (month < 10) {
+                            month = '0' + month;
+                        }
+
+                        return day + '-' + month + '-' + year;
+                    }
+                },
+                { 
+                    data: 'tanggal_harus_dikembalikan', 
+                    name: 'tanggal_harus_dikembalikan', 
+                    className: 'text-center',
+                    render: function(data, type, row) {
+                        // Jika tanggal kosong, tampilkan ' '
+                        if (!data) {
+                            return ' ';
+                        }
+
+                        // Ubah format tanggal
+                        var date = new Date(data);
+                        var day = date.getDate();
+                        var month = date.getMonth() + 1;
+                        var year = date.getFullYear();
+
+                        if (day < 10) {
+                            day = '0' + day;
+                        }
+                        if (month < 10) {
+                            month = '0' + month;
+                        }
+
+                        return day + '-' + month + '-' + year;
+                    }
+                },
                 { data : 'no', name: 'no' },
                 { data : 'no', name: 'no' },
                 {

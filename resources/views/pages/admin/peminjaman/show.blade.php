@@ -47,7 +47,7 @@
                                             <td>ID Anggota</td>
                                             <td>:</td>
                                             <td>
-                                                AG001
+                                                <?= $item->id_users;?>
                                             </td>
                                         </tr>
                                         <tr>
@@ -58,35 +58,35 @@
                                                     <tr>
                                                         <td>Nama Anggota</td>
                                                         <td>:</td>
-                                                        <td>Zaedan</td>
+                                                        <td><?= $item->user->name;?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Kelas</td>
+                                                        <td>:</td>
+                                                        <td><?= $item->user->kelas;?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Telepon</td>
                                                         <td>:</td>
-                                                        <td>081</td>
+                                                        <td><?= $item->user->nomor_telepon;?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>E-mail</td>
                                                         <td>:</td>
-                                                        <td>zidan@gmail.com</td>
+                                                        <td><?= $item->user->email;?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Alamat</td>
                                                         <td>:</td>
-                                                        <td>Cibaduyut</td>
+                                                        <td><?= $item->user->alamat;?></td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>Level</td>
-                                                        <td>:</td>
-                                                        <td>Anggota</td>
-                                                    </tr>
-                                                </table>
+                                                </table>    
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Lama Peminjaman</td>
                                             <td>:</td>
-                                            <td>2 Hari</td>
+                                            <td><?= $item->lama_peminjaman;?></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -99,7 +99,7 @@
                                             <td>Status</td>
                                             <td>:</td>
                                             <td>
-                                                Dipinjam
+                                                 <?= $item->status;?>
                                             </td>
                                         </tr>
                                         <tr>
