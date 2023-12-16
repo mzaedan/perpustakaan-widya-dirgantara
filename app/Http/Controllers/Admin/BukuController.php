@@ -89,7 +89,7 @@ class BukuController extends Controller
 
         Buku::create($data);
 
-        return redirect()->route('buku.index');
+        return redirect()->route('buku.index')->with('toast_success', 'Data Berhasil Ditambahkan !');
     }
 
     /**
@@ -137,7 +137,7 @@ class BukuController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('buku.index');
+        return redirect()->route('buku.index')->with('toast_success', 'Data Behasil Diedit !');
     }
 
     /**
@@ -148,6 +148,6 @@ class BukuController extends Controller
         $item = Buku::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('buku.index');
+        return redirect()->route('buku.index')->with('toast_success', 'Data Behasil Dihapus !');
     }
 }

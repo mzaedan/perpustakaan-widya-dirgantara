@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\BukuController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DendaController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PeminjamanController;
+use App\Http\Controllers\Admin\RakController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BukuAnggotaController;
 use App\Http\Controllers\CekRoleController;
 use App\Http\Controllers\DashboardPeminjamanController;

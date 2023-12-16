@@ -13,6 +13,15 @@
         <div class="dashboard-content">
             <div class="row">
                 <div class="col-md-12">
+                    @if (count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ route('buku.update',  $item->id) }}" method="POST" enctype="multipart/form-data">
@@ -31,7 +40,7 @@
                                         <div class="form-group">
                                             <label>Kategori</label>
                                             <select class="form-control select2" required="required"  name="id_kategori">
-                                                <option value="{{ $item->kategori->nama }}" selected>{{ $item->kategori->nama }}</option>
+                                                <option value="{{ $item->id_kategori }}" selected>{{ $item->kategori->nama }}</option>
                                                 @foreach ($allKategori as $kategori)
                                                     <option value="{{ $kategori->nama }}">{{ $kategori->nama }}</option>
                                                 @endforeach
@@ -40,8 +49,12 @@
                                         <div class="form-group">
                                             <label>Rak/Lokasi</label>
                                             <select class="form-control select2" required="required"  name="id_rak">
-                                                <option disabled selected value> -- Pilih Rak -- </option>
-                                                <option value="1"> TEST </option>
+                                                <option value="{{ $item->id_rak }}" selected>{{ $item->rak->nama }}</option>
+                                                @foreach ($allRak as $rak)
+                                                    <option value="{{ $rak->id }}">
+                                                        {{ $rak->nama }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -50,7 +63,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Nama Penerbit</label>
-                                            <input type="text" class="form-control" name="pengarang" placeholder="Nama Pengarang" value="{{ $item->penerbit }}">
+                                            <input type="text" class="form-control" name="penerbit" placeholder="Nama Pengarang" value="{{ $item->penerbit }}">
                                         </div>
                                         <div class="form-group">
                                             <label>Tahun Buku</label>
@@ -72,7 +85,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Keterangan Lainnya</label>
-                                            <textarea class="form-control" name="keterangan" id="summernotehal" style="height:120px" value="{{ $item->keterangan }}"></textarea>
+                                            <textarea class="form-control" name="keterangan" id="summernotehal" style="height:120px" value="{{ $item->keterangan }}">{{ $item->keterangan  }}</textarea>
                                         </div>
                                     </div>
                                 </div>
