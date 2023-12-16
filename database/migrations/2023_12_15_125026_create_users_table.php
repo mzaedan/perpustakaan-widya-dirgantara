@@ -26,8 +26,14 @@ return new class extends Migration
             $table->string('nomor_telepon');
             $table->string('foto');
             $table->string('kelas');
+            $table->string('tempat_lahir')->nullable();
+            $table->string('tanggal_lahir')->nullable();
+            $table->string('jenis_kelamin')->nullable();
+            $table->longText('alamat')->nullable();
+            $table->string('nomor_telepon')->nullable();
+            $table->string('foto')->nullable();
+            $table->string('kelas')->nullable();
             $table->string('roles')->default('ANGGOTA');
-
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

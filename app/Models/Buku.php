@@ -29,7 +29,7 @@ class Buku extends Model
 
     public static function getKodeBuku()
     {
-        $latestKode = self::max('kode_buku');
+        $latestKode = self::withTrashed()->max('kode_buku');
 
         if (!$latestKode) {
             return 'BK001';
