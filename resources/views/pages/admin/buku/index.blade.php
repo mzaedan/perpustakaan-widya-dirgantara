@@ -24,9 +24,9 @@
                                             <th>Kode Buku</th>
                                             <th>Nama Buku</th>
                                             <th>Penerbit</th>
-                                            <th>Tahun Buku</th>
+                                            <th style="text-align: center">Tahun Anggaran/Pembelian</th>
                                             <th>Stok Buku</th>
-                                            <th>Tanggal Masuk</th>
+                                            <th>Rak</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -61,19 +61,10 @@
                 { data : 'kode_buku', name: 'kode_buku' },
                 { data : 'nama', name: 'nama' },
                 { data : 'penerbit', name: 'penerbit' },
-                { data : 'tahun_buku', name: 'tahun_buku' },
+                { data : 'tahun_buku', name: 'tahun_buku', className: 'text-center' },
+                
                 { data : 'jumlah', name: 'jumlah' },
-                { 
-                    data : 'created_at', 
-                    name: 'created_at',
-                    render: function(data) {
-                        var date = new Date(data);
-                        var day = date.getDate();
-                        var month = date.toLocaleString('default', { month: 'long' });
-                        var year = date.getFullYear();
-                        return day + ' ' + month + ' ' + year;
-                    }
-                },
+                { data : 'rak.nama', name: 'rak.nama'},
                 {
                     data : 'action',
                     name : 'action',

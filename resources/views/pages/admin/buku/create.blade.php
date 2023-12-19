@@ -67,8 +67,8 @@
                                             <input type="text" class="form-control" name="penerbit" placeholder="Nama Penerbit">
                                         </div>
                                         <div class="form-group">
-                                            <label>Tahun Buku</label>
-                                            <input type="number" class="form-control" name="tahun_buku" placeholder="Tahun Buku : 2019">
+                                            <label>Tahun Anggaran/Pembelian</label>
+                                            <input type="number" class="form-control" name="tahun_buku" placeholder="Contoh : 2020, 2021">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">

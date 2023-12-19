@@ -21,7 +21,7 @@ class BukuController extends Controller
     {
         if(request()->ajax())
         {
-            $query = Buku::query();
+            $query = Buku::with(['rak'])->get();
 
             return DataTables::of($query)
                 ->addColumn('action', function($item) {

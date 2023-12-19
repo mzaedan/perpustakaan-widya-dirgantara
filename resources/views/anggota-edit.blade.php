@@ -51,13 +51,6 @@
                                             <input type="password" class="form-control" name="password" placeholder="Password">
                                             <small>Kosongkan Jika Tidak Akan Ganti Password</small>
                                         </div>
-                                        <div class="form-group">
-                                            <label>Roles</label>
-                                            <select name="roles" class="form-select" required="required">
-                                                <option value="ADMIN">ADMIN</option>
-                                                <option value="ANGGOTA">ANGGOTA</option>
-                                            </select>
-                                        </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
