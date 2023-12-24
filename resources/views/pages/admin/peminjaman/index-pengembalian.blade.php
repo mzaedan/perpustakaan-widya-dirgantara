@@ -19,7 +19,7 @@
                                         <tr>
                                             <th style="text-align: center">No</th>
                                             <th style="text-align: center">Kode Pinjam</th>
-                                            <th style="text-align: center">ID Anggota</th>
+                                            <th style="text-align: center">Kode Anggota</th>
                                             <th style="text-align: center">Nama</th>
                                             <th style="text-align: center">Tanggal Peminjaman</th>
                                             <th style="text-align: center">Tanggal Harus Dikembalikan</th>
