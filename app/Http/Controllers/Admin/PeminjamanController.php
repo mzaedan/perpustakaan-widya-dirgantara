@@ -113,8 +113,11 @@ class PeminjamanController extends Controller
     {
         $users = User::where('id', 'kode_anggota')->get();
 
+        $kodePeminjaman = Peminjaman::getKodePeminjaman();
+
         return view('pages.admin.peminjaman.create', [
-            'users' => $users
+            'users' => $users,
+            'kodePeminjaman' => $kodePeminjaman
         ]);
     }
 
@@ -201,9 +204,11 @@ class PeminjamanController extends Controller
         }
     }
 
-    public function Bukulist($id)
+    public function Bukulist(Request $request)
     {
-        $buku = Buku::where('id', $id)->first();
+        $kodeBuku = $request->get('kode_buku');
+
+        $buku = Buku::where('kode_buku', 'like', '%'.$kodeBuku.'%')->first();
 
         if ($buku) {
             return response()->json([

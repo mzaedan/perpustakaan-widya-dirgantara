@@ -29,7 +29,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Kode Peminjaman</label>
-                                            <input type="text" class="form-control" name="kode_peminjaman">
+                                            <input type="text" class="form-control" name="kode_peminjaman" value="<?= $kodePeminjaman ?>" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label>Tanggal Peminjaman</label>
@@ -58,7 +58,7 @@
                                         <div class="form-group">
                                             <label>Kode Buku</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" required autocomplete="off" name="buku-search" id="buku-search" placeholder="Contoh ID Anggota : AG001">
+                                                <input type="text" class="form-control" required autocomplete="off" name="buku-search" id="buku-search" placeholder="Contoh Kode Buku : BK001">
                                                 <div class="input-group-append">
                                                     <a data-toggle="modal" data-target="#TableBuku" class="btn btn-primary"><i class="fa fa-search"></i></a>
                                                 </div>
@@ -88,7 +88,6 @@
 </div>
 
 @endsection
-
 
 <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -138,10 +137,18 @@
 </script>
 
 <script>
-    $(document).on('keyup', '#buku-search',function(){
-        let id = $(this).val();
-        axios.get('/peminjaman/buku-list/'+id)
-        .then(function (response) {
+    $(document).on('keyup', '#buku-search', function() {
+
+        let kodeBuku = $(this).val();
+        let url = "<?= url('/peminjaman/buku-list?') ?>";
+        
+        if (kodeBuku !== "" && kodeBuku !== null) {
+            url = url + '&kode_buku=' + kodeBuku;
+        }
+
+        console.log("keyup#buku-search.url: ", url)
+
+        axios.get(url).then(function (response) {
             let result = $('#result_buku').html('');
             if (response.data.status == "ok") {
                 let html = `<table id="example3" class="table table-bordered table-striped">
@@ -159,6 +166,9 @@
                             <td>${response.data.nama}</td>
                             <td>${response.data.penerbit}</td>
                             <td>${response.data.tahun_buku}</td>
+                            <td>
+                                <button className="btn btn-default btn-sm">Pilih</button>    
+                            </td>
                         </tr>
                     </tbody>
                 </table>`;
@@ -177,11 +187,13 @@
 </script>
 
 <script>
-document.getElementById('datepicker').addEventListener('input', function() {
-    var date = new Date(this.value);
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    this.value = day + '-' + month + '-' + year;
-});
+if (document.getElementById('datepicker') !== undefined && document.getElementById('datepicker') !== null) {
+    document.getElementById('datepicker').addEventListener('input', function() {
+        var date = new Date(this.value);
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+        this.value = day + '-' + month + '-' + year;
+    });
+}
 </script>
