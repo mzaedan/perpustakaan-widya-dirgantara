@@ -54,7 +54,7 @@
             },
             columns: [
                 { data : 'no', name: 'no', className: 'text-center', width: '15%' },
-                { data : 'id', name: 'id', className: 'text-center' },
+                { data : 'kode_anggota', name: 'kode_anggota', className: 'text-center' },
                 { data : 'foto', name: 'foto', className: 'text-center' },
                 { data : 'name', name: 'name', className: 'text-center' },
                 { data : 'email', name: 'email', className: 'text-center' },

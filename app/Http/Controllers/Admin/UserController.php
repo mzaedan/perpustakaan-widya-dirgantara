@@ -80,6 +80,10 @@ class UserController extends Controller
     {
         $data = $request->all();
 
+        if ($data['roles'] === 'ANGGOTA') {
+            $data['kode_anggota'] = User::getKodeAnggota();
+        }
+
         $data['password'] = bcrypt($request->password);
         $data['foto'] = $request->file('foto')->store('assets/foto', 'public');
 
