@@ -47,7 +47,6 @@
   
   <!-- /.content-wrapper -->
 
-
   @include('includes.admin.footer')
 
   <!-- Control Sidebar -->

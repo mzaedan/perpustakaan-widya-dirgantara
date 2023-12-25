@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\Admin\BukuController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DendaController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PeminjamanController;
+use App\Http\Controllers\Admin\RakController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BukuAnggotaController;
 use App\Http\Controllers\CekRoleController;
 use App\Http\Controllers\DashboardPeminjamanController;
@@ -49,7 +52,6 @@ Route::group(['middleware' => ['auth']], function(){
 
     //Peminjaman dan Pengembalian ADMIN
     Route::get('/pengembalian', [PeminjamanController::class, 'pengembalian'])->name('pengembalian');
-    Route::post('/peminjaman/kembali/{id}', [PeminjamanController::class, 'kembalikan'])->name('kembalikan');
 
     //Peminjaman dan Pengembalian Anggota
     Route::get('/peminjaman/peminjaman', [DashboardPeminjamanController::class, 'peminjaman'])->name('index-peminjaman-anggota');
@@ -62,6 +64,10 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/user/update', [UserAnggotaController::class, 'update'])->name('update-user');
     
     Route::get('user/cetak-kartu/{id}', [App\Http\Controllers\Admin\UserController::class, 'cetak_pdf'])->name('cetak-kartu');
+});
+
+Route::group(['middleware' => ['auth','admin']], function(){
+   Route::post('/peminjaman/kembali/{id}', [PeminjamanController::class, 'kembalikan'])->name('kembalikan');
 });
 
 

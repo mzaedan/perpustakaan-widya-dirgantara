@@ -13,9 +13,6 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <a href="{{ route('denda.create') }}" class="btn btn-primary mb-3">
-                                + Tambah Denda
-                            </a>
                             <div class="table-resposive">
                                 <table class="table table-hover scroll-horizontal-vertical w-100" id="crudTable">
                                     <thead>

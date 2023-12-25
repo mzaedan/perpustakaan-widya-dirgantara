@@ -27,6 +27,10 @@
                                     <td>{{ $item->isbn  }}</td>
                                 </tr>
                                 <tr>
+                                    <th style="width: 180px">Rak</th>
+                                    <td>{{ $item->rak->nama  }}</td>
+                                </tr>
+                                <tr>
                                     <th style="width: 180px">Penerbit</th>
                                     <td>{{ $item->penerbit  }}</td>
                                 </tr>
@@ -36,7 +40,7 @@
                                 </tr>
                                 <tr>
                                     <th style="width: 180px">Kategori</th>
-                                    <td>{{ $item->id_kategori  }}</td>
+                                    <td>{{ $item->kategori->nama  }}</td>
                                 </tr>
                                 <tr>
                                     <th style="width: 180px">Tahun Buku</th>

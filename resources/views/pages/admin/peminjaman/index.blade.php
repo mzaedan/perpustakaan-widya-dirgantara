@@ -22,7 +22,7 @@
                                         <tr>
                                             <th style="text-align: center">No</th>
                                             <th style="text-align: center">Kode Pinjam</th>
-                                            <th style="text-align: center">ID Anggota</th>
+                                            <th style="text-align: center">Kode Anggota</th>
                                             <th style="text-align: center">Nama</th>
                                             <th style="text-align: center">Tanggal Peminjaman</th>
                                             <th style="text-align: center">Tanggal Harus Dikembalikan</th>
@@ -58,7 +58,7 @@
                 { data : 'no', name: 'no', className: 'text-center' },
                 { data : 'kode_peminjaman', name: 'kode_peminjaman', className: 'text-center' },
                 { data : 'id_users', name: 'id_users', className: 'text-center'},
-                { data : 'id_users', name: 'id_users', className: 'text-center' },
+                { data : 'user.name', name: 'user.name', className: 'text-center' },
                 { 
                     data: 'tanggal_peminjaman', 
                     name: 'tanggal_peminjaman', 
@@ -106,7 +106,7 @@
                         return day + '-' + month + '-' + year;
                     }
                 },
-                { data : 'no', name: 'no' },
+                { data : 'status', name: 'status' },
                 { data : 'no', name: 'no' },
                 {
                     data : 'action',

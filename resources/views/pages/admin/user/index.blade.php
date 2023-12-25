@@ -21,7 +21,7 @@
                                     <thead>
                                         <tr>
                                             <th style="text-align: center">No</th>
-                                            <th style="text-align: center">ID</th>
+                                            <th style="text-align: center">Kode Anggota</th>
                                             <th style="text-align: center">Foto</th>
                                             <th style="text-align: center">Nama</th>
                                             <th style="text-align: center">Email</th>

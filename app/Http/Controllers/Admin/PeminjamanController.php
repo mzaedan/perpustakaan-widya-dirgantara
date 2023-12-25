@@ -20,7 +20,7 @@ class PeminjamanController extends Controller
     {
         if(request()->ajax())
         {
-            $query = Peminjaman::query()->where('status', 'Dipinjam');;
+            $query = Peminjaman::with(['user'])->where('status', 'Dipinjam')->get();
 
             return DataTables::of($query)
                 ->addColumn('action', function($item) {
@@ -67,7 +67,7 @@ class PeminjamanController extends Controller
     {
         if(request()->ajax())
         {
-            $query = Peminjaman::query()->where('status', 'Dikembalikan');
+            $query = Peminjaman::with(['user'])->where('status', 'Dikembalikan');
 
             return DataTables::of($query)
                 ->addColumn('action', function($item) {

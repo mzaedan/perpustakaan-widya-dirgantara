@@ -94,6 +94,7 @@
 <script>
     $(document).on('keyup', '#search-box',function(){
         let id = $(this).val();
+        var self = this;
         axios.get('/peminjaman/result/'+id)
         .then(function (response) {
             let result = $('#result').html('');

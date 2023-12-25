@@ -28,7 +28,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Nama Buku</label>
+                                            <label>Nama</label>
                                             <input type="text" class="form-control" name="nama" placeholder="Contoh : Novel,Komik,Dll">
                                         </div>
                                     </div>
