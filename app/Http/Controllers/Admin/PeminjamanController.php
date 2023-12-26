@@ -20,7 +20,7 @@ class PeminjamanController extends Controller
     {
         if(request()->ajax())
         {
-            $query = Peminjaman::with(['user'])->where('status', 'Dipinjam')->get();
+            $query = Peminjaman::with(['anggota'])->where('status', 'Dipinjam')->get();
 
             return DataTables::of($query)
                 ->addColumn('action', function($item) {
@@ -67,7 +67,7 @@ class PeminjamanController extends Controller
     {
         if(request()->ajax())
         {
-            $query = Peminjaman::with(['user'])->where('status', 'Dikembalikan');
+            $query = Peminjaman::with(['anggota'])->where('status', 'Dikembalikan');
 
             return DataTables::of($query)
                 ->addColumn('action', function($item) {
@@ -130,7 +130,9 @@ class PeminjamanController extends Controller
 
         $data['status'] = 'Dipinjam';
 
-        Peminjaman::create($data);
+        $peminjaman = Peminjaman::create($data);
+        $peminjaman->updateStokBuku();
+        $peminjaman->updateTanggalDikembalikan();
 
         return redirect()->route('peminjaman.index');
     }
@@ -169,6 +171,7 @@ class PeminjamanController extends Controller
     public function destroy(string $id)
     {
         $item = Peminjaman::findOrFail($id);
+        $item->updateStokBuku($hapusPeminjaman = true);
         $item->delete();
 
         return redirect()->route('peminjaman.index');
@@ -178,18 +181,25 @@ class PeminjamanController extends Controller
     {
         $peminjaman = Peminjaman::findOrFail($id);
         $peminjaman->status = 'Dikembalikan';
+        $peminjaman->tanggal_kembali = date('Y-m-d');
         $peminjaman->save();
 
         return redirect()->route('peminjaman.index')->with('success', 'Peminjaman berhasil dikembalikan');
     }
 
-    public function result($id)
+    public function AnggotaList(Request $request)
     {
-        $user = User::where('id', $id)->first();
+        $kodeAnggota = $request->get('kode_anggota');
+
+        $queryUser = User::query();
+        $queryUser->where('roles','=','ANGGOTA');
+        $queryUser->where('kode_anggota','=',$kodeAnggota);
+        $user = $queryUser->first();
 
         if ($user) {
             return response()->json([
                 'status' => "ok",
+                'id' => $user->id,
                 'name' => $user->name,
                 'nomor_telepon' => $user->nomor_telepon,
                 'email' => $user->email,
@@ -208,11 +218,14 @@ class PeminjamanController extends Controller
     {
         $kodeBuku = $request->get('kode_buku');
 
-        $buku = Buku::where('kode_buku', 'like', '%'.$kodeBuku.'%')->first();
+        $queryBuku = Buku::query();
+        $queryBuku->where('kode_buku','=',$kodeBuku);
+        $buku = $queryBuku->first();
 
         if ($buku) {
             return response()->json([
                 'status' => "ok",
+                'id' => $buku->id,
                 'nama' => $buku->nama,
                 'penerbit' => $buku->penerbit,
                 'tahun_buku' => $buku->tahun_buku,

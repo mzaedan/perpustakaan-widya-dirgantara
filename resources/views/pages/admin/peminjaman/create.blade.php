@@ -36,9 +36,9 @@
                                             <input type="date" class="form-control" id="datepicker" name="tanggal_peminjaman" value="<?= date('Y-m-d');?>">
                                         </div>
                                         <div class="form-group">
-                                            <label>ID Anggota</label>
+                                            <label>Kode Anggota</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" required autocomplete="off" name="id_users" id="search-box" placeholder="Contoh ID Anggota : AG001">
+                                                <input type="text" class="form-control" required autocomplete="off" name="kode_anggota" id="anggota-search" placeholder="Contoh Kode Anggota : AG001">
                                                 <div class="input-group-append">
                                                     <a data-toggle="modal" data-target="#TableAnggota" class="btn btn-primary"><i class="fa fa-search"></i></a>
                                                 </div>
@@ -46,12 +46,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Biodata</label>
-                                            <div id="result_tunggu"><p style="color:red">* Belum Ada Hasil</p></div>
-                                            <div id="result"></div>
+                                            <div id="tunggu_anggota"><p style="color:red">* Belum Ada Hasil</p></div>
+                                            <div id="result_anggota"></div>
+                                            <input type="hidden" name="id_anggota" id="id_anggota">
                                         </div>
                                         <div class="form-group">
                                             <label>Lama Peminjaman</label>
-                                            <input type="number" class="form-control" name="lama_peminjaman" placeholder="">
+                                            <input type="number" class="form-control" name="lama_peminjaman" placeholder="" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -68,6 +69,7 @@
                                             <label>Data Buku</label>
                                             <div id="tunggu_buku"><p style="color:red">* Belum Ada Hasil</p></div>
                                             <div id="result_buku"></div>
+                                            <input type="hidden" name="id_buku" id="id_buku">
                                         </div>
                                     </div>
                                 </div>
@@ -92,13 +94,20 @@
 <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
-    $(document).on('keyup', '#search-box',function(){
-        let id = $(this).val();
-        var self = this;
-        axios.get('/peminjaman/result/'+id)
-        .then(function (response) {
-            let result = $('#result').html('');
+    $(document).on('keyup', '#anggota-search', function(){
+        let kodeAnggota = $(this).val();
+        let url = "<?= url('/peminjaman/anggota-list?') ?>";
+        
+        if (kodeAnggota !== "" && kodeAnggota !== null) {
+            url = url + '&kode_anggota=' + kodeAnggota;
+        }
+
+        console.log("keyup#anggota-search.url: ", url)
+
+        axios.get(url).then(function (response) {
+            let result = $('#result_anggota').html('');
             if (response.data.status == "ok") {
+                $('#id_anggota').val(response.data.id);
                 let html = `<table id="example3" class="table table-bordered table-striped">
                     <tbody>
                         <tr>
@@ -123,16 +132,16 @@
                         </tr>
                     </tbody>
                 </table>`;
-                $("#result_tunggu").hide();
+                $("#tunggu_anggota").hide();
                 result = html;
-                $('#result').html(result);
+                $('#result_anggota').html(result);
             } else {
-                $("#result_tunggu").show();
+                $("#tunggu_anggota").show();
             }
         })
         .catch(function (error) {
-            let result = $('#result').html('');
-            $("#result_tunggu").show();
+            let result = $('#result_anggota').html('');
+            $("#tunggu_anggota").show();
         });
     });
 </script>
@@ -152,6 +161,7 @@
         axios.get(url).then(function (response) {
             let result = $('#result_buku').html('');
             if (response.data.status == "ok") {
+                $('#id_buku').val(response.data.id);
                 let html = `<table id="example3" class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -167,9 +177,6 @@
                             <td>${response.data.nama}</td>
                             <td>${response.data.penerbit}</td>
                             <td>${response.data.tahun_buku}</td>
-                            <td>
-                                <button className="btn btn-default btn-sm">Pilih</button>    
-                            </td>
                         </tr>
                     </tbody>
                 </table>`;

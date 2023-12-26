@@ -57,8 +57,8 @@
             columns: [
                 { data : 'no', name: 'no', className: 'text-center' },
                 { data : 'kode_peminjaman', name: 'kode_peminjaman', className: 'text-center' },
-                { data : 'id_users', name: 'id_users', className: 'text-center'},
-                { data : 'user.name', name: 'user.name', className: 'text-center' },
+                { data : 'anggota.kode_anggota', name: 'anggota.kode_anggota', className: 'text-center'},
+                { data : 'anggota.name', name: 'anggota.name', className: 'text-center' },
                 { 
                     data: 'tanggal_peminjaman', 
                     name: 'tanggal_peminjaman', 

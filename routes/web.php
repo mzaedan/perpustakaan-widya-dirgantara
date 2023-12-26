@@ -56,7 +56,7 @@ Route::group(['middleware' => ['auth']], function(){
     //Peminjaman dan Pengembalian Anggota
     Route::get('/peminjaman/peminjaman', [DashboardPeminjamanController::class, 'peminjaman'])->name('index-peminjaman-anggota');
     Route::get('/peminjaman/pengembalian', [DashboardPeminjamanController::class, 'pengembalian'])->name('index-pengembalian-anggota');
-    Route::get('/peminjaman/result/{id}', [PeminjamanController::class, 'result'])->name('result');
+    Route::get('/peminjaman/anggota-list', [PeminjamanController::class, 'AnggotaList'])->name('anggota-list');
     Route::get('/peminjaman/buku-list', [PeminjamanController::class, 'Bukulist'])->name('buku-list');
     
     Route::get('/user/index', [UserAnggotaController::class, 'index'])->name('index-user');

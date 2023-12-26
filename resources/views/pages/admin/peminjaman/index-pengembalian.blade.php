@@ -55,8 +55,8 @@
             columns: [
                 { data : 'no', name: 'no', className: 'text-center' },
                 { data : 'kode_peminjaman', name: 'kode_peminjaman', className: 'text-center' },
-                { data : 'id', name: 'id', className: 'text-center'},
-                { data : 'user.name', name: 'user.name', className: 'text-center' },
+                { data : 'anggota.kode_anggota', name: 'anggota.kode_anggota', className: 'text-center'},
+                { data : 'anggota.name', name: 'anggota.name', className: 'text-center' },
                 { 
                     data: 'tanggal_peminjaman', 
                     name: 'tanggal_peminjaman', 
@@ -80,7 +80,7 @@
                 },
                 { data : 'tanggal_harus_dikembalikan', name: 'tanggal_harus_dikembalikan', className: 'text-center' },
                 { data : 'status', name: 'no' },
-                { data : 'no', name: 'no' },
+                { data : 'tanggal_kembali', name: 'tanggal_kembali' },
                 { data : 'no', name: 'no' },
                 {
                     data : 'action',
