@@ -42,10 +42,8 @@
         </div>
     </div>
 </div>
-@include('sweetalert::alert')
+
 @endsection
-
-
 
 @push('addon-script')
     <script>

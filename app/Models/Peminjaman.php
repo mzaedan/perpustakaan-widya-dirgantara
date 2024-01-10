@@ -62,7 +62,7 @@ class Peminjaman extends Model
         return 'PJ' . str_pad($nextKodeNumber, 3, '0', STR_PAD_LEFT);
     }
 
-    public function updateStokBuku($hapusPeminjaman = false)
+    public function updateStokBuku($peminjamanDihapus = false)
     {
         $buku = $this->buku;
 
@@ -70,21 +70,25 @@ class Peminjaman extends Model
             return false;
         }
 
-        $stokBuku = $buku->jumlah;
+        $jumlahBuku = $buku->jumlah;
 
-        if ($stokBuku === 0) {
+        if ($jumlahBuku === 0) {
             return false;
         }
 
         if ($this->status === "Dipinjam") {
-            $stokBuku = $stokBuku - 1;
+            $jumlahBuku--;
         }
 
-        if ($this->status === "Dikembalikan" or $hapusPeminjaman) {
-            $stokBuku = $stokBuku + 1;
+        if ($this->status === "Dikembalikan") {
+            $jumlahBuku++;
         }
 
-        $buku->jumlah = $stokBuku;
+        if ($peminjamanDihapus) {
+            $jumlahBuku++;
+        }
+
+        $buku->jumlah = $jumlahBuku;
         $buku->save();
     }
 

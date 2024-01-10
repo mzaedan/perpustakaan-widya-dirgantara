@@ -56,7 +56,7 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
+@include('sweetalert::alert')
 @stack('prepend-script')
 @include('includes.admin.script')
 @stack('addon-script')
