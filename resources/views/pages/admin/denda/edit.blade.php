@@ -30,7 +30,18 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Harga Denda</label>
-                                            <input type="text" class="form-control" name="harga_denda" placeholder="Contoh : Novel,Komik,Dll" value="{{ $item->harga_denda }}">
+                                            <input type="text" class="form-control" name="harga_denda" placeholder="Contoh : 2000" value="{{ $item->harga_denda }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select name="status" id="status" class="form-select">
+                                                <option value="Aktif" {{ $item->status === 'Aktif' ? 'selected':''}}>Aktif</option>
+                                                <option value="Tidak Aktif" {{ $item->status === 'Tidak Aktif' ? 'selected':''}}>Tidak Aktif</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

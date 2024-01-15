@@ -12,6 +12,9 @@ class Denda extends Model
 
     protected $table = 'denda';
 
+    const STATUS_AKTIF = 'Aktif';
+    const STATUS_TIDAK_AKTIF = 'Tidak Aktif';
+
     protected $fillable = [
         'harga_denda', 'status', 'tanggal_tetap'
     ];

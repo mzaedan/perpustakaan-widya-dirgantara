@@ -79,9 +79,9 @@
                     }
                 },
                 { data : 'tanggal_harus_dikembalikan', name: 'tanggal_harus_dikembalikan', className: 'text-center' },
-                { data : 'status', name: 'no' },
+                { data : 'status', name: 'status' },
                 { data : 'tanggal_kembali', name: 'tanggal_kembali' },
-                { data : 'no', name: 'no' },
+                { data : 'denda', name: 'denda' },
                 {
                     data : 'action',
                     name : 'action',

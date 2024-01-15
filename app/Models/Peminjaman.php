@@ -104,4 +104,34 @@ class Peminjaman extends Model
         $this->tanggal_harus_dikembalikan = $tanggalDikembalikan;
         $this->save();
     }
+
+    public function getJumlahTelatKembalikan()
+    {
+        if ($this->tanggal_harus_dikembalikan == null) {
+            return 0;
+        }
+
+        $tanggalHarusDikembalikan = strtotime($this->tanggal_harus_dikembalikan);
+        $tanggalKembali = strtotime($this->tanggal_kembali);
+
+        $dateDiff = $tanggalKembali - $tanggalHarusDikembalikan;
+
+        $jumlahTelat = round($dateDiff / (60 * 60 * 24));
+
+        return $jumlahTelat;
+    }
+
+    public function getDenda()
+    {
+        $dendaAktif = Denda::where('status','=',Denda::STATUS_AKTIF)->first();
+
+        if ($dendaAktif === null) {
+            return 0;
+        }
+
+        $jumlahTelat = $this->getJumlahTelatKembalikan();
+        $hargaDenda = floatval($dendaAktif->harga_denda);
+
+        return $jumlahTelat * $hargaDenda;
+    }
 }

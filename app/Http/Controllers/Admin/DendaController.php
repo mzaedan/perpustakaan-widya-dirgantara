@@ -69,13 +69,19 @@ class DendaController extends Controller
     {
         $data = $request->all();
 
-        $data['status'] =  'Aktif';
+        $checkDendaAktif = Denda::where('status','=',Denda::STATUS_AKTIF)->first();
+
+        if ($checkDendaAktif === null) {
+            $data['status'] =  'Aktif';
+        } else {
+            $data['status'] = 'Tidak Aktif';
+        }
 
         $data['tanggal_tetap'] =  date('Y-m-d');
 
         Denda::create($data);
 
-        return redirect()->route('denda.index');
+        return redirect()->route('denda.index')->with('toast_success','Denda berhasil disimpan');
     }
 
     /**

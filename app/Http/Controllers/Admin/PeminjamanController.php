@@ -96,8 +96,11 @@ class PeminjamanController extends Controller
                     static $count = 1;
                     return $count++;
                 })
+                ->addColumn('denda', function($item) {
+                    return '<span class="text-danger">'.$item->getDenda().'</span>';
+                })
                
-                ->rawColumns(['action','no'])
+                ->rawColumns(['action','no','denda'])
                 ->make();
 
         }
