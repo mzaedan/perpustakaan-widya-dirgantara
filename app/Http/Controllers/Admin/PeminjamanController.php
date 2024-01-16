@@ -18,6 +18,12 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
+        $list = Peminjaman::with(['anggota'])->where('status', 'Dipinjam')->get();
+        
+        foreach ($list as $data) {
+            $data->getDenda();
+        }
+
         if(request()->ajax())
         {
             $query = Peminjaman::with(['anggota'])->where('status', 'Dipinjam')->get();
@@ -55,8 +61,10 @@ class PeminjamanController extends Controller
                     static $count = 1;
                     return $count++;
                 })
-               
-                ->rawColumns(['action','no'])
+                ->addColumn('denda', function($item) {
+                    return '<span class="text-danger">'.$item->getDenda().'</span>';
+                })
+                ->rawColumns(['action','no','denda'])
                 ->make();
 
         }
@@ -99,7 +107,6 @@ class PeminjamanController extends Controller
                 ->addColumn('denda', function($item) {
                     return '<span class="text-danger">'.$item->getDenda().'</span>';
                 })
-               
                 ->rawColumns(['action','no','denda'])
                 ->make();
 

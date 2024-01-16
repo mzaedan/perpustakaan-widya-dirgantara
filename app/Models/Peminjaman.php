@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
@@ -98,10 +99,11 @@ class Peminjaman extends Model
             return false;
         }
 
+        $tanggalPeminjaman = $this->tanggal_peminjaman;
         $lamaPeminjaman = $this->lama_peminjaman;
-        $tanggalDikembalikan = date('Y-m-d', strtotime('+'.$lamaPeminjaman.' day'));
+        $tanggalHarusDikembalikan = date('Y-m-d', strtotime($tanggalPeminjaman.'+'.$lamaPeminjaman.' day'));
 
-        $this->tanggal_harus_dikembalikan = $tanggalDikembalikan;
+        $this->tanggal_harus_dikembalikan = $tanggalHarusDikembalikan;
         $this->save();
     }
 
@@ -111,14 +113,18 @@ class Peminjaman extends Model
             return 0;
         }
 
-        $tanggalHarusDikembalikan = strtotime($this->tanggal_harus_dikembalikan);
-        $tanggalKembali = strtotime($this->tanggal_kembali);
+        $tanggalKembali = new DateTime($this->tanggal_kembali);
+        $tanggalHarusDikembalikan = new DateTime($this->tanggal_harus_dikembalikan);
+       
+        if ($tanggalKembali === false) {
+            $tanggalKembali = new DateTime("now");
+        }
+  
+        $dateDiff = $tanggalKembali->diff($tanggalHarusDikembalikan);
 
-        $dateDiff = $tanggalKembali - $tanggalHarusDikembalikan;
+        $jumlahTelat = $dateDiff->days;
 
-        $jumlahTelat = round($dateDiff / (60 * 60 * 24));
-
-        return $jumlahTelat;
+        return intval($jumlahTelat);
     }
 
     public function getDenda()
@@ -129,9 +135,16 @@ class Peminjaman extends Model
             return 0;
         }
 
-        $jumlahTelat = $this->getJumlahTelatKembalikan();
+        if (date('Y-m-d') <= $this->tanggal_harus_dikembalikan) {
+            return 0;
+        }
+
         $hargaDenda = floatval($dendaAktif->harga_denda);
 
-        return $jumlahTelat * $hargaDenda;
+        $jumlahTelatKembalikan = $this->getJumlahTelatKembalikan();
+        
+        $totalDenda = $hargaDenda * $jumlahTelatKembalikan;
+
+        return $totalDenda;
     }
 }

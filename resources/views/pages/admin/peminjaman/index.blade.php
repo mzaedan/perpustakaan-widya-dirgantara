@@ -107,7 +107,7 @@
                     }
                 },
                 { data : 'status', name: 'status' },
-                { data : 'no', name: 'no' },
+                { data : 'denda', name: 'denda' },
                 {
                     data : 'action',
                     name : 'action',
