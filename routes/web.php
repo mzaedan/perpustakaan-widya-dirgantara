@@ -37,8 +37,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-
-
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
 Route::get('peminjaman', [PeminjamanController::class, 'index'])->name('peminjaman-amggota');

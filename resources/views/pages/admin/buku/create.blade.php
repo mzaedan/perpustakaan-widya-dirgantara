@@ -77,7 +77,7 @@
                                             <input type="number" class="form-control" name="jumlah" placeholder="Jumlah buku : 12">
                                         </div>
                                         <div class="form-group">
-                                            <label>Sampul</label>
+                                            <label>Sampul <small style="color:green">* opsional</small></label>
                                             <input type="file" accept="image/*" name="sampul" class="form-control">
                                         </div>
                                         <div class="form-group">

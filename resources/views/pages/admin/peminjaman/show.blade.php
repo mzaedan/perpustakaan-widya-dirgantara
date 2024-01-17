@@ -44,10 +44,10 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>ID Anggota</td>
+                                            <td>Kode Anggota</td>
                                             <td>:</td>
                                             <td>
-                                                <?= $item->id_users;?>
+                                                <?= @$item->anggota->kode_anggota;?>
                                             </td>
                                         </tr>
                                         <tr>
@@ -58,27 +58,27 @@
                                                     <tr>
                                                         <td>Nama Anggota</td>
                                                         <td>:</td>
-                                                        <td><?= $item->user->name;?></td>
+                                                        <td><?= @$item->anggota->name;?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Kelas</td>
                                                         <td>:</td>
-                                                        <td><?= $item->user->kelas;?></td>
+                                                        <td><?= @$item->anggota->kelas;?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Telepon</td>
                                                         <td>:</td>
-                                                        <td><?= $item->user->nomor_telepon;?></td>
+                                                        <td><?= @$item->anggota->nomor_telepon;?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>E-mail</td>
                                                         <td>:</td>
-                                                        <td><?= $item->user->email;?></td>
+                                                        <td><?= @$item->anggota->email;?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Alamat</td>
                                                         <td>:</td>
-                                                        <td><?= $item->user->alamat;?></td>
+                                                        <td><?= @$item->anggota->alamat;?></td>
                                                     </tr>
                                                 </table>    
                                             </td>
@@ -86,7 +86,7 @@
                                         <tr>
                                             <td>Lama Peminjaman</td>
                                             <td>:</td>
-                                            <td><?= $item->lama_peminjaman;?></td>
+                                            <td><?= $item->lama_peminjaman;?> Hari</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -106,22 +106,29 @@
                                             <td>Tgl Kembali</td>
                                             <td>:</td>
                                             <td>
-                                                Belum Dikembalikan
+                                                <?php if ($item->tanggal_kembali === null) { ?>
+                                                    Belum Dikembalikan
+                                                <?php } else { ?>
+                                                    <?= $item->tanggal_kembali ?>
+                                                <?php } ?>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Denda</td>
                                             <td>:</td>
                                             <td>
-                                                <p>1 Hari</p>
-                                                Rp. 2000
+                                                <?php if ($item->tanggal_harus_dikembalikan <= date('Y-m-d')) { ?>
+                                                    <?= $item->getJumlahTelatKembalikan() ?> Hari <br/> 
+                                                    <span class="text-danger">Rp <?= $item->getDenda() ?></span>
+                                                <?php } ?>
+
                                             </p><small style="color:#333;">*Untuk 1 Buku</small>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Kode Buku</td>
                                         <td>:</td>
-                                        <td>BK001</td>
+                                        <td><?= @$item->buku->kode_buku ?></td>
                                     </tr>
                                     <tr>
                                         <td>Data Buku</td>
@@ -139,9 +146,9 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>1</td>
-                                                        <td>Laskar Pelangi</td>
-                                                        <td>Gramedia</td>
-                                                        <td>2009</td>
+                                                        <td><?= @$item->buku->nama ?></td>
+                                                        <td><?= @$item->buku->penerbit ?></td>
+                                                        <td><?= @$item->buku->tahun_buku ?></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

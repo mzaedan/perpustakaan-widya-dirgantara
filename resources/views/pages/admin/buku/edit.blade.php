@@ -76,11 +76,27 @@
                                             <input type="number" class="form-control" name="jumlah" placeholder="Jumlah buku : 12" value="{{ $item->jumlah }}">
                                         </div>
                                         <div class="form-group">
-                                            <label>Sampul</label>
+                                            <label>Sampul <small style="color:green">* opsional</small></label> <br/>
+                                            <div class="mb-3">
+                                                @if ($item->sampul === null)
+                                                    <span class="text-danger"><i class="fa fa-times"></i> <i>Tidak ada file yang diupload</i></span>
+                                                @else
+                                                    <img class="img-fluid" width="200" src="{{ asset('storage/'.$item->sampul)}}" alt="sampul.jpg" />
+                                                @endif
+                                            </div>
                                             <input type="file" accept="image/*" name="sampul" class="form-control">
                                         </div>
                                         <div class="form-group">
-                                            <label>Lampiran Buku <small style="color:green">(pdf) * opsional</small></label>
+                                            <label>Lampiran Buku <small style="color:green">(pdf) * opsional</small></label> <br/>
+                                            <div class="mb-3">
+                                                @if ($item->lampiran === null)
+                                                    <span class="text-danger"><i class="fa fa-times"></i> <i>Tidak ada file yang diupload</i></span>
+                                                @else
+                                                <a href="{{ url('storage/'.$item->lampiran) }}">
+                                                    <i class="fa fa-download"></i> &nbsp;Download Lampiran
+                                                </a>
+                                                @endif
+                                            </div>
                                             <input type="file" accept="application/pdf" name="lampiran" class="form-control">
                                         </div>
                                         <div class="form-group">

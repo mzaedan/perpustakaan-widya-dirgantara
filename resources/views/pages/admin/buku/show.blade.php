@@ -53,17 +53,23 @@
                                 <tr>
                                     <th style="width: 180px">Sampul</th>
                                     <td>
-                                        <a href="{{ asset('storage/'.$item->sampul) }}" download target="_blank">
-                                            <i class="fas fa-download"></i>
-                                        </a>
+                                        @if ($item->sampul === null)
+                                            <span class="text-danger"><i class="fa fa-times"></i> <i>Tidak ada file yang diupload</i></span>
+                                        @else
+                                            <img class="img-fluid" width="200" src="{{ asset('storage/'.$item->sampul)}}" alt="sampul.jpg" />
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <th style="width: 180px">Lampiran</th>
                                     <td>
-                                        <a href="{{ asset('storage/'.$item->lampiran) }}" download target="_blank">
-                                            <i class="fas fa-download"></i>
+                                        @if ($item->lampiran === null)
+                                            <span class="text-danger"><i class="fa fa-times"></i> <i>Tidak ada file yang diupload</i></span>
+                                        @else
+                                        <a href="{{ url('storage/'.$item->lampiran) }}">
+                                            <i class="fa fa-download"></i> &nbsp;Download Lampiran
                                         </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>

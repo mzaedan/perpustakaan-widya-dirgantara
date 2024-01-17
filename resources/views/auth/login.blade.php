@@ -1,5 +1,7 @@
 @extends('layouts.login')
 
+@section('title','Login')
+
 @section('content')
   
   <main class="login-container">
@@ -45,10 +47,11 @@
                     Sign In
                     </button>
                     @if (Route::has('password.request'))
-                        <p class="text-center mt-4">
-                            <a class="btn btn-link" href="{{ route('password.request') }}">Saya Lupa Password</a>
-                        </p>
+                    <p class="text-center mt-4">
+                      <a class="btn btn-link" href="{{ route('password.request') }}">Saya Lupa Password</a>
+                    </p>
                     @endif
+                    <p style="text-align: center">Belum punya akun ? klik <a href="{{ url('/register') }}">disini</a> untuk mendaftar</p>
                 </form>
             </div>
           </div>

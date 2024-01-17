@@ -1,5 +1,7 @@
 @extends('layouts.login')
 
+@section('title','Register')
+    
 @section('content')
 
 <main class="login-container">

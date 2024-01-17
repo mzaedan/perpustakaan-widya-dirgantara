@@ -17,13 +17,16 @@ class BukuController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        $allRak = Rak::all();
+
         if(request()->ajax())
         {
-            $query = Buku::with(['rak'])->get();
+            $query = Buku::with(['rak']);
 
             return DataTables::of($query)
+                ->addIndexColumn()
                 ->addColumn('action', function($item) {
                     return '
                         <div class="btn-group">
@@ -53,12 +56,18 @@ class BukuController extends Controller
                     static $count = 1;
                     return $count++;
                 })
-               
+                ->filter(function($instance) use ($request) {
+                    if ($request->get('id_rak') !== null) {
+                        $instance->where('id_rak','=',$request->get('id_rak'));
+                    }
+                })
                 ->rawColumns(['action', 'no'])
                 ->make();
 
         }
-        return view('pages.admin.buku.index');
+        return view('pages.admin.buku.index', [
+            'allRak' => $allRak
+        ]);
     }
 
     /**
@@ -84,8 +93,13 @@ class BukuController extends Controller
 
         $data['kode_buku'] = Buku::getKodeBuku();
 
-        $data['sampul'] = $request->file('sampul')->store('assets/sampul', 'public');
-        $data['lampiran'] = $request->file('lampiran')->store('assets/lampiran', 'public');
+        if ($request->file('sampul') !== null) {
+            $data['sampul'] = $request->file('sampul')->store('assets/sampul', 'public');
+        }
+
+        if ($request->file('lampiran') !== null) {
+            $data['lampiran'] = $request->file('lampiran')->store('assets/lampiran', 'public');
+        }
 
         Buku::create($data);
 
@@ -128,10 +142,13 @@ class BukuController extends Controller
     {
         $data = $request->all();
 
-        $data['kode_buku'] =  'BK001';
+        if ($request->file('sampul') !== null) {
+            $data['sampul'] = $request->file('sampul')->store('assets/sampul', 'public');
+        }
 
-        $data['sampul'] = $request->file('sampul')->store('assets/sampul', 'public');
-        $data['lampiran'] = $request->file('lampiran')->store('assets/lampiran', 'public');
+        if ($request->file('lampiran') !== null) {
+            $data['lampiran'] = $request->file('lampiran')->store('assets/lampiran', 'public');
+        }
 
         $item = Buku::findOrFail($id);
 

@@ -13,6 +13,21 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
+                            <div class="form-group col-md-2">
+                                <label for="id_rak" class="form-label">Rak</label>
+                                <select name="id_rak" id="id_rak" class="form-control">
+                                    <option value="">-- Pilih --</option>
+                                    @foreach ($allRak as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
                             <a href="{{ route('buku.create') }}" class="btn btn-primary mb-3">
                                 + Tambah Buku
                             </a>
@@ -31,7 +46,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                    
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -47,30 +62,39 @@
 
 @push('addon-script')
     <script>
-        var datatable = $('#crudTable').DataTable({
-            processing: true,
-            serverSide: true,
-            ordering: true,
-            ajax: {
-                url: '{!! url()->current() !!}',
-            },
-            columns: [
-                { data : 'no', name: 'no' },
-                { data : 'kode_buku', name: 'kode_buku' },
-                { data : 'nama', name: 'nama' },
-                { data : 'penerbit', name: 'penerbit' },
-                { data : 'tahun_buku', name: 'tahun_buku', className: 'text-center' },
-                
-                { data : 'jumlah', name: 'jumlah' },
-                { data : 'rak.nama', name: 'rak.nama'},
-                {
-                    data : 'action',
-                    name : 'action',
-                    orderable : false,
-                    searcable : false,
-                    width: '15%'
+        $(function () {
+            var datatable = $('#crudTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ordering: true,
+                ajax: {
+                    url: '{!! url()->current() !!}',
+                    data: function(d) {
+                        d.id_rak = $("#id_rak").val();
+                    }
                 },
-            ]
+                columns: [
+                    { data : 'no', name: 'no' },
+                    { data : 'kode_buku', name: 'kode_buku' },
+                    { data : 'nama', name: 'nama' },
+                    { data : 'penerbit', name: 'penerbit' },
+                    { data : 'tahun_buku', name: 'tahun_buku', className: 'text-center' },
+                    
+                    { data : 'jumlah', name: 'jumlah' },
+                    { data : 'rak.nama', name: 'rak.nama'},
+                    {
+                        data : 'action',
+                        name : 'action',
+                        orderable : false,
+                        searcable : false,
+                        width: '15%'
+                    },
+                ]
+            })
+    
+            $('#id_rak').change(function() {
+                datatable.draw();
+            });
         })
     </script>
 @endpush

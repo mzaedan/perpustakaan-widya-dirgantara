@@ -18,11 +18,11 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
-        $list = Peminjaman::with(['anggota'])->where('status', 'Dipinjam')->get();
+        // $list = Peminjaman::with(['anggota'])->where('status', 'Dipinjam')->get();
         
-        foreach ($list as $data) {
-            $data->getDenda();
-        }
+        // foreach ($list as $data) {
+        //     $data->getDenda();
+        // }
 
         if(request()->ajax())
         {
@@ -62,7 +62,13 @@ class PeminjamanController extends Controller
                     return $count++;
                 })
                 ->addColumn('denda', function($item) {
-                    return '<span class="text-danger">'.$item->getDenda().'</span>';
+                    $output = '';
+                    if ($item->tanggal_harus_dikembalikan <= date('Y-m-d')) {
+                        $output .= $item->getJumlahTelatKembalikan().' Hari <br/> <span class="text-danger">Rp '.$item->getDenda().'</span>';
+                        $output .= '</p><small style="color:#333;">*Untuk 1 Buku</small>';
+                    }
+
+                    return $output;
                 })
                 ->rawColumns(['action','no','denda'])
                 ->make();
@@ -105,7 +111,13 @@ class PeminjamanController extends Controller
                     return $count++;
                 })
                 ->addColumn('denda', function($item) {
-                    return '<span class="text-danger">'.$item->getDenda().'</span>';
+                    $output = '';
+                    if ($item->tanggal_harus_dikembalikan <= date('Y-m-d')) {
+                        $output .= $item->getJumlahTelatKembalikan().' Hari <br/> <span class="text-danger">Rp '.$item->getDenda().'</span>';
+                        $output .= '</p><small style="color:#333;">*Untuk 1 Buku</small>';
+                    }
+
+                    return $output;
                 })
                 ->rawColumns(['action','no','denda'])
                 ->make();
