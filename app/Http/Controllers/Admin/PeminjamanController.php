@@ -241,10 +241,13 @@ class PeminjamanController extends Controller
 
     public function Bukulist(Request $request)
     {
-        $kodeBuku = $request->get('kode_buku');
+        $search = $request->get('search');
 
         $queryBuku = Buku::query();
-        $queryBuku->where('kode_buku','=',$kodeBuku);
+        if (!empty($search)) {
+            $queryBuku->where('kode_buku','LIKE',"%$search%")
+                ->orWhere('nama','LIKE',"%$search%");
+        } 
         $buku = $queryBuku->first();
 
         if ($buku) {

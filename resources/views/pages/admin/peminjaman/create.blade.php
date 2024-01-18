@@ -57,9 +57,9 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Kode Buku</label>
+                                            <label>Cari Buku</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" required autocomplete="off" name="buku-search" id="buku-search" placeholder="Contoh Kode Buku : BK001">
+                                                <input type="text" class="form-control" required autocomplete="off" name="buku-search" id="buku-search" placeholder="Contoh : Membaca Cepat, BK001">
                                                 <div class="input-group-append">
                                                     <a data-toggle="modal" data-target="#TableBuku" class="btn btn-primary"><i class="fa fa-search"></i></a>
                                                 </div>
@@ -149,11 +149,11 @@
 <script>
     $(document).on('keyup', '#buku-search', function() {
 
-        let kodeBuku = $(this).val();
+        let search = $(this).val();
         let url = "<?= url('/peminjaman/buku-list?') ?>";
         
-        if (kodeBuku !== "" && kodeBuku !== null) {
-            url = url + '&kode_buku=' + kodeBuku;
+        if (search !== "" && search !== null) {
+            url = url + '&search=' + search;
         }
 
         console.log("keyup#buku-search.url: ", url)
