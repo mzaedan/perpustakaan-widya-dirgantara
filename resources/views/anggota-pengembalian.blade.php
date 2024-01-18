@@ -26,7 +26,6 @@
                                             <th style="text-align: center">Status</th>
                                             <th style="text-align: center">Tanggal Kembali</th>
                                             <th style="text-align: center">Denda</th>
-                                            <th style="text-align: center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
