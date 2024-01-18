@@ -19,13 +19,14 @@
                                         <tr>
                                             <th style="text-align: center">No</th>
                                             <th style="text-align: center">Kode Pinjam</th>
-                                            <th style="text-align: center">ID Anggota</th>
+                                            <th style="text-align: center">Kode Anggota</th>
                                             <th style="text-align: center">Nama</th>
                                             <th style="text-align: center">Tanggal Peminjaman</th>
                                             <th style="text-align: center">Tanggal Harus Dikembalikan</th>
                                             <th style="text-align: center">Status</th>
                                             <th style="text-align: center">Tanggal Kembali</th>
                                             <th style="text-align: center">Denda</th>
+                                            <th style="text-align: center">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,8 +55,8 @@
             columns: [
                 { data : 'no', name: 'no', className: 'text-center' },
                 { data : 'kode_peminjaman', name: 'kode_peminjaman', className: 'text-center' },
-                { data : 'id_users', name: 'id_users', className: 'text-center'},
-                { data : 'user.name', name: 'user.name', className: 'text-center' },
+                { data : 'anggota.kode_anggota', name: 'anggota.kode_anggota', className: 'text-center'},
+                { data : 'anggota.name', name: 'anggota.name', className: 'text-center' },
                 { 
                     data: 'tanggal_peminjaman', 
                     name: 'tanggal_peminjaman', 
@@ -78,9 +79,9 @@
                     }
                 },
                 { data : 'tanggal_harus_dikembalikan', name: 'tanggal_harus_dikembalikan', className: 'text-center' },
-                { data : 'no', name: 'no' },
-                { data : 'no', name: 'no' },
-                { data : 'no', name: 'no' },
+                { data : 'status', name: 'status' },
+                { data : 'tanggal_kembali', name: 'tanggal_kembali' },
+                { data : 'denda', name: 'denda' },
             ]
         })
     </script>

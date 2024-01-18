@@ -51,11 +51,10 @@
                       <a class="btn btn-link" href="{{ route('password.request') }}">Saya Lupa Password</a>
                     </p>
                     @endif
-                    <p style="text-align: center">Belum punya akun ? klik <a href="{{ url('/register') }}">disini</a> untuk mendaftar</p>
+                    <p style="text-align: center">Belum punya akun? Klik <a href="{{ url('/register') }}">Disini</a> untuk mendaftar</p>
                 </form>
             </div>
           </div>
-          
         </div>
       </div>
     </div>
