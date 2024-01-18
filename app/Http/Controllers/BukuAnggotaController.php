@@ -4,17 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Buku;
+use App\Models\Rak;
 use Yajra\DataTables\DataTables;
 
 class BukuAnggotaController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $allRak = Rak::all();
+
         if(request()->ajax())
         {
             $query = Buku::query();
 
             return DataTables::of($query)
+                ->addIndexColumn()
                 ->addColumn('action', function($item) {
                     return '
                         <div class="btn-group">
@@ -44,11 +48,17 @@ class BukuAnggotaController extends Controller
                     static $count = 1;
                     return $count++;
                 })
-               
+                ->filter(function($instance) use ($request) {
+                    if ($request->get('id_rak') !== null) {
+                        $instance->where('id_rak','=',$request->get('id_rak'));
+                    }
+                })
                 ->rawColumns(['action', 'no'])
                 ->make();
 
         }
-        return view('anggota-buku');
+        return view('anggota-buku',[
+            'allRak' => $allRak
+        ]);
     }
 }

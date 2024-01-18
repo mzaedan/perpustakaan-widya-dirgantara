@@ -55,24 +55,11 @@ class DashboardPeminjamanController extends Controller
 
                 ->addColumn('denda', function($item) {
                     $output = '';
-                    if ($item->tanggal_harus_dikembalikan <= date('Y-m-d')) {
-                        $output .= $item->getJumlahTelatKembalikan().' Hari <br/> <span class="text-danger">Rp '.$item->getDenda().'</span>';
-                        $output .= '</p><small style="color:#333;">*Untuk 1 Buku</small>';
-                    }
+                    $output .= $item->getJumlahTelatKembalikan().' Hari <br/> <span class="text-danger">Rp '.$item->getDenda().'</span>';
+                    $output .= '</p><small style="color:#333;">*Untuk 1 Buku</small>';
 
                     return $output;
-                })
-
-                ->addColumn('denda', function($item) {
-                    $output = '';
-                    if ($item->tanggal_harus_dikembalikan <= date('Y-m-d')) {
-                        $output .= $item->getJumlahTelatKembalikan().' Hari <br/> <span class="text-danger">Rp '.$item->getDenda().'</span>';
-                        $output .= '</p><small style="color:#333;">*Untuk 1 Buku</small>';
-                    }
-
-                    return $output;
-                })
-               
+                }) 
                 ->rawColumns(['action','no', 'denda'])
                 ->make();
 
@@ -118,17 +105,13 @@ class DashboardPeminjamanController extends Controller
                     static $count = 1;
                     return $count++;
                 })
-
                 ->addColumn('denda', function($item) {
                     $output = '';
-                    if ($item->tanggal_harus_dikembalikan <= date('Y-m-d')) {
-                        $output .= $item->getJumlahTelatKembalikan().' Hari <br/> <span class="text-danger">Rp '.$item->getDenda().'</span>';
-                        $output .= '</p><small style="color:#333;">*Untuk 1 Buku</small>';
-                    }
+                    $output .= $item->getJumlahTelatKembalikan().' Hari <br/> <span class="text-danger">Rp '.$item->getDenda().'</span>';
+                    $output .= '</p><small style="color:#333;">*Untuk 1 Buku</small>';
 
                     return $output;
                 })
-               
                 ->rawColumns(['action','no', 'denda'])
                 ->make();
 

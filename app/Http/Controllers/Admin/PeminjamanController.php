@@ -63,10 +63,8 @@ class PeminjamanController extends Controller
                 })
                 ->addColumn('denda', function($item) {
                     $output = '';
-                    if ($item->tanggal_harus_dikembalikan <= date('Y-m-d')) {
-                        $output .= $item->getJumlahTelatKembalikan().' Hari <br/> <span class="text-danger">Rp '.$item->getDenda().'</span>';
-                        $output .= '</p><small style="color:#333;">*Untuk 1 Buku</small>';
-                    }
+                    $output .= $item->getJumlahTelatKembalikan().' Hari <br/> <span class="text-danger">Rp '.$item->getDenda().'</span>';
+                    $output .= '</p><small style="color:#333;">*Untuk 1 Buku</small>';
 
                     return $output;
                 })
@@ -112,10 +110,8 @@ class PeminjamanController extends Controller
                 })
                 ->addColumn('denda', function($item) {
                     $output = '';
-                    if ($item->tanggal_harus_dikembalikan <= date('Y-m-d')) {
-                        $output .= $item->getJumlahTelatKembalikan().' Hari <br/> <span class="text-danger">Rp '.$item->getDenda().'</span>';
-                        $output .= '</p><small style="color:#333;">*Untuk 1 Buku</small>';
-                    }
+                    $output .= $item->getJumlahTelatKembalikan().' Hari <br/> <span class="text-danger">Rp '.$item->getDenda().'</span>';
+                    $output .= '</p><small style="color:#333;">*Untuk 1 Buku</small>';
 
                     return $output;
                 })
