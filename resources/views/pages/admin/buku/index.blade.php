@@ -71,6 +71,7 @@
                     url: '{!! url()->current() !!}',
                     data: function(d) {
                         d.id_rak = $("#id_rak").val();
+                        d.search = $('input[type="search"]').val();
                     }
                 },
                 columns: [

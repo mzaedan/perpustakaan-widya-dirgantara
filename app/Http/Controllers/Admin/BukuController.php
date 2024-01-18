@@ -60,6 +60,15 @@ class BukuController extends Controller
                     if ($request->get('id_rak') !== null) {
                         $instance->where('id_rak','=',$request->get('id_rak'));
                     }
+                    if (!empty($request->get('search'))) {
+                        $instance->where(function($w) use($request){
+                            $search = $request->get('search');
+                            $w->orWhere('kode_buku', 'LIKE', "%$search%")
+                            ->orWhere('nama', 'LIKE', "%$search%")
+                            ->orWhere('penerbit', 'LIKE', "%$search%")
+                            ->orWhere('tahun_buku', 'LIKE', "%$search%");
+                        });
+                    }
                 })
                 ->rawColumns(['action', 'no'])
                 ->make();
