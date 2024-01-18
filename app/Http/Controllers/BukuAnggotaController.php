@@ -15,7 +15,7 @@ class BukuAnggotaController extends Controller
 
         if(request()->ajax())
         {
-            $query = Buku::query();
+            $query = Buku::with(['rak']);
 
             return DataTables::of($query)
                 ->addIndexColumn()

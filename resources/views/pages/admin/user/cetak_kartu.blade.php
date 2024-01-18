@@ -59,9 +59,9 @@
                             <table class="table table-stripped">
                                 @if (is_object($alluser))
                                     <tr>
-                                        <td>ID Anggota</td>
+                                        <td>Kode Anggota</td>
                                         <td>:</td>
-                                        <td>{{ $alluser->id }}</td>
+                                        <td>{{ $alluser->kode_anggota }}</td>
                                     </tr>
                                     <tr>
                                         <td>Nama</td>
