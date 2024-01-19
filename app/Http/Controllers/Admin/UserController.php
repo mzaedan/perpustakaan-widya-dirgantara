@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Http\Requests\Admin\UserRequest;
 use Barryvdh\DomPDF\PDF;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -54,10 +55,14 @@ class UserController extends Controller
                     return $count++;
                 })
 
+                // ->editColumn('foto', function($item){
+                //     return $item->foto ? '<img src="'. asset('storage/'.$item->foto) .'" style="max-height: 100px;"/>' : '';
+                // })
+
                 ->editColumn('foto', function($item){
-                    return $item->foto ? '<img src="'. asset('storage/'.$item->foto) .'" style="max-height: 100px;"/>' : '';
+                    return $item->foto ? '<img src="'. Storage::url($item->foto) .'" style="max-height: 100px;"/>' : '';
                 })
-               
+                            
                 ->rawColumns(['action','no', 'foto'])
                 ->make();
 
