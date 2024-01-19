@@ -105,7 +105,7 @@
                     }
                 },
                 { data : 'status', name: 'status' },
-                 { 
+                { 
                     data: 'tanggal_kembali', 
                     name: 'tanggal_kembali', 
                     className: 'text-center',
