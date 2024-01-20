@@ -48,6 +48,11 @@ class Peminjaman extends Model
         return $this->belongsTo(Buku::class, 'id_buku', 'id');
     }
 
+    public function manyPeminjamanBuku()
+    {
+        return $this->hasMany(PeminjamanBuku::class, 'id_peminjaman', 'id');
+    }
+
     /**
      * @return string
      */
@@ -113,6 +118,10 @@ class Peminjaman extends Model
             return 0;
         }
 
+        if ($this->tanggal_harus_dikembalikan >= date('Y-m-d')) {
+            return 0;
+        }
+
         $tanggalKembali = new DateTime($this->tanggal_kembali);
         $tanggalHarusDikembalikan = new DateTime($this->tanggal_harus_dikembalikan);
        
@@ -146,5 +155,23 @@ class Peminjaman extends Model
         $totalDenda = $hargaDenda * $jumlahTelatKembalikan;
 
         return $totalDenda;
+    }
+
+    public function getJumlahBuku()
+    {
+        return $this->manyPeminjamanBuku()->count();
+    }
+
+    public function createPeminjamanBuku()
+    {
+        if ($this->id_buku !== null) {
+            $peminjamanBuku = new PeminjamanBuku();
+            $peminjamanBuku->id_peminjaman = $this->id;
+            $peminjamanBuku->id_buku = $this->id_buku;
+            $peminjamanBuku->save();
+
+            $this->id_buku = null;
+            $this->save();
+        }
     }
 }

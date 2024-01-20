@@ -7,6 +7,7 @@ use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\PeminjamanRequest;
 use App\Models\Buku;
+use App\Models\PeminjamanBuku;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use app\Models\User;
@@ -18,18 +19,14 @@ class PeminjamanController extends Controller
      */
     public function index()
     {
-        // $list = Peminjaman::with(['anggota'])->where('status', 'Dipinjam')->get();
-        
-        // foreach ($list as $data) {
-        //     $data->getDenda();
-        // }
-
         if(request()->ajax())
         {
             $query = Peminjaman::with(['anggota'])->where('status', 'Dipinjam')->get();
 
             return DataTables::of($query)
                 ->addColumn('action', function($item) {
+                    $item->createPeminjamanBuku();
+
                     return '
                         <div class="btn-group">
                             <div class="dropdown">
@@ -64,7 +61,7 @@ class PeminjamanController extends Controller
                 ->addColumn('denda', function($item) {
                     $output = '';
                     $output .= $item->getJumlahTelatKembalikan().' Hari <br/> <span class="text-danger">Rp '.$item->getDenda().'</span>';
-                    $output .= '</p><small style="color:#333;">*Untuk 1 Buku</small>';
+                    $output .= '</p><small style="color:#333;">*Untuk '.$item->getJumlahBuku().' Buku</small>';
 
                     return $output;
                 })
@@ -83,6 +80,8 @@ class PeminjamanController extends Controller
 
             return DataTables::of($query)
                 ->addColumn('action', function($item) {
+                    $item->createPeminjamanBuku();
+
                     return '
                         <div class="btn-group">
                             <div class="dropdown">
@@ -111,7 +110,7 @@ class PeminjamanController extends Controller
                 ->addColumn('denda', function($item) {
                     $output = '';
                     $output .= $item->getJumlahTelatKembalikan().' Hari <br/> <span class="text-danger">Rp '.$item->getDenda().'</span>';
-                    $output .= '</p><small style="color:#333;">*Untuk 1 Buku</small>';
+                    $output .= '</p><small style="color:#333;">*Untuk '.$item->getJumlahBuku().' Buku</small>';
 
                     return $output;
                 })
@@ -146,17 +145,25 @@ class PeminjamanController extends Controller
     {
         $data = $request->all();
 
-        $data['status'] = 'Dipinjam';
+        $peminjaman = new Peminjaman();
+        $peminjaman->kode_peminjaman = $data['kode_peminjaman'];
+        $peminjaman->id_anggota = $data['id_anggota'];
+        $peminjaman->tanggal_peminjaman = $data['tanggal_peminjaman'];
+        $peminjaman->lama_peminjaman = $data['lama_peminjaman'];
+        $peminjaman->status = 'Dipinjam';
+        $peminjaman->save();
 
-        $buku = Buku::findOrFail($data['id_buku']);
-
-        if ($buku->jumlah === 0) {
-            return redirect()->back()->with('toast_error', 'Maaf, stok buku ini sudah habis :(');
-        }
-
-        $peminjaman = Peminjaman::create($data);
         $peminjaman->updateStokBuku();
         $peminjaman->updateTanggalDikembalikan();
+
+        if (count($data['id_buku']) > 0) {
+            foreach ($data['id_buku'] as $idBuku) {
+                $peminjamanBuku = new PeminjamanBuku();
+                $peminjamanBuku->id_peminjaman = $peminjaman->id;
+                $peminjamanBuku->id_buku = $idBuku;
+                $peminjamanBuku->save();
+            } 
+        }
 
         return redirect()->route('peminjaman.index');
     }
@@ -248,15 +255,25 @@ class PeminjamanController extends Controller
             $queryBuku->where('kode_buku','LIKE',"%$search%")
                 ->orWhere('nama','LIKE',"%$search%");
         } 
-        $buku = $queryBuku->first();
+        $allBuku = $queryBuku->get();
 
-        if ($buku) {
+        if ($allBuku && count($allBuku) > 0) {
+            $data = [];
+
+            foreach ($allBuku as $buku) {
+                $data[] = [
+                    'id' => $buku->id,
+                    'nama' => $buku->nama,
+                    'penerbit' => $buku->penerbit,
+                    'tahun_buku' => $buku->tahun_buku,
+                    'stok' => $buku->jumlah
+                ];
+            }
+
             return response()->json([
-                'status' => "ok",
-                'id' => $buku->id,
-                'nama' => $buku->nama,
-                'penerbit' => $buku->penerbit,
-                'tahun_buku' => $buku->tahun_buku,
+                'status' => 'ok',
+                'message' => 'Buku ditemukan',
+                'data' => $data
             ], 200);
         } else {
             return response()->json([

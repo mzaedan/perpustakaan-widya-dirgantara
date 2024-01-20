@@ -69,7 +69,23 @@
                                             <label>Data Buku</label>
                                             <div id="tunggu_buku"><p style="color:red">* Belum Ada Hasil</p></div>
                                             <div id="result_buku"></div>
-                                            <input type="hidden" name="id_buku" id="id_buku">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Buku Yang Akan Dipinjam</label>
+                                            <table class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Title</th>
+                                                        <th>Penerbit</th>
+                                                        <th>Tahun</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody_buku_yang_dipinjam">
+                                                    
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -147,6 +163,8 @@
 </script>
 
 <script>
+    let listBuku = [];
+
     $(document).on('keyup', '#buku-search', function() {
 
         let search = $(this).val();
@@ -156,12 +174,14 @@
             url = url + '&search=' + search;
         }
 
-        console.log("keyup#buku-search.url: ", url)
+        // console.log("keyup#buku-search.url: ", url)
 
         axios.get(url).then(function (response) {
             let result = $('#result_buku').html('');
             if (response.data.status == "ok") {
-                $('#id_buku').val(response.data.id);
+
+                listBuku = response.data.data;
+                
                 let html = `<table id="example3" class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -169,20 +189,34 @@
                             <th>Title</th>
                             <th>Penerbit</th>
                             <th>Tahun</th>
+                            <th></th>
                         </tr>
 				    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>${response.data.nama}</td>
-                            <td>${response.data.penerbit}</td>
-                            <td>${response.data.tahun_buku}</td>
-                        </tr>
+                    <tbody id="tbody_result_buku">
+                        
                     </tbody>
                 </table>`;
+                
                 $("#tunggu_buku").hide();
                 result = html;
                 $('#result_buku').html(result);
+
+
+                let tr = '';
+                listBuku.map((buku, index) => {
+                    tr += `<tr>
+                            <td>${index + 1}</td>
+                            <td>${buku.nama}</td>
+                            <td>${buku.penerbit}</td>
+                            <td>${buku.tahun_buku}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-xs" onclick="addToBukuYangDipinjam(`+buku.id+`)">
+                                    <i class="fa fa-plus"></i>
+                                </button>    
+                            </td>
+                        </tr>`; 
+                });
+                $("#tbody_result_buku").append(tr);
             } else {
                 $("#tunggu_buku").show();
             }
@@ -191,7 +225,62 @@
             let result = $('#result_buku').html('');
             $("#tunggu_buku").show();
         });
+        
     });
+    
+    let selectedIdBuku = [];
+    let i = 0;
+    function addToBukuYangDipinjam(idBuku) {
+        if (selectedIdBuku.includes(idBuku)) {
+            return alert('Buku ini sudah ditambahkan pada daftar yang akan dipinjam, silahkan pilih buku lain');
+        }
+
+        let filterBuku = listBuku.filter((value) => value.id === idBuku);
+        let buku = {};
+        
+        if (filterBuku.length > 0) {
+            buku = filterBuku[0];
+        }
+
+        if (buku?.stok === 0) {
+            return alert('Maaf, stok buku ini sudah habis');
+        }
+        
+        selectedIdBuku.push(buku?.id);
+        
+        console.log("selectedIdBuku:", selectedIdBuku);
+
+        i++;
+
+        let tr = '';
+
+        tr = `<tr>
+                <td id="row_num">${i}</td>
+                <td>${buku?.nama}</td>
+                <td>${buku?.penerbit}</td>
+                <td>${buku?.tahun_buku}</td>
+                <td>
+                    <button type="button" name="remove" class="btn btn-danger btn-xs btn_remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <input type="hidden" name="id_buku[]" value="${idBuku}" />
+                </td>
+            </tr>`;
+
+        $("#tbody_buku_yang_dipinjam").append(tr);
+    }
+
+    $(document).on('click', '.btn_remove', function() {
+        $(this).closest("tr").remove(); //use closest here
+        $('#tbody_buku_yang_dipinjam tr').each(function(index) {
+            //change id of first tr
+            $(this).find("td:eq(0)").attr("id", "row_num" + (index + 1))
+            //change hidden input value 
+            $(this).find("td:eq(0)").html((index + 1))
+        });
+        i--;
+    });
+    
 </script>
 
 <script>

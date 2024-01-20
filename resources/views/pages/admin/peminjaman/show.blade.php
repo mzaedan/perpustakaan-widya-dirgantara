@@ -119,13 +119,8 @@
                                                     <?= $item->getJumlahTelatKembalikan() ?> Hari <br />
                                                     <span class="text-danger">Rp <?= $item->getDenda() ?></span>
 
-                                                    </p><small style="color:#333;">*Untuk 1 Buku</small>
+                                                    </p><small style="color:#333;">*Untuk <?= $item->getJumlahBuku() ?> Buku</small>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Kode Buku</td>
-                                                <td>:</td>
-                                                <td><?= @$item->buku->kode_buku ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Data Buku</td>
@@ -141,12 +136,14 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            <?php $i = 1; foreach($item->manyPeminjamanBuku as $peminjamanBuku) { ?>
                                                             <tr>
-                                                                <td>1</td>
-                                                                <td><?= @$item->buku->nama ?></td>
-                                                                <td><?= @$item->buku->penerbit ?></td>
-                                                                <td><?= @$item->buku->tahun_buku ?></td>
+                                                                <td><?= $i ?></td>
+                                                                <td><?= @$peminjamanBuku->buku->nama ?></td>
+                                                                <td><?= @$peminjamanBuku->buku->penerbit ?></td>
+                                                                <td><?= @$peminjamanBuku->buku->tahun_buku ?></td>
                                                             </tr>
+                                                            <?php $i++; } ?>
                                                         </tbody>
                                                     </table>
                                                 </td>
