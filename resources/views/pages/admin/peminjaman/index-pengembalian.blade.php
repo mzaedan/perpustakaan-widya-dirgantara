@@ -78,9 +78,59 @@
                         return day + '-' + month + '-' + year;
                     }
                 },
-                { data : 'tanggal_harus_dikembalikan', name: 'tanggal_harus_dikembalikan', className: 'text-center' },
+                { 
+                    data: 'tanggal_harus_dikembalikan', 
+                    name: 'tanggal_harus_dikembalikan', 
+                    className: 'text-center',
+                    render: function(data, type, row) {
+                        // Jika tanggal kosong, tampilkan ' '
+                        if (!data) {
+                            return ' ';
+                        }
+
+                        // Ubah format tanggal
+                        var date = new Date(data);
+                        var day = date.getDate();
+                        var month = date.getMonth() + 1;
+                        var year = date.getFullYear();
+
+                        if (day < 10) {
+                            day = '0' + day;
+                        }
+                        if (month < 10) {
+                            month = '0' + month;
+                        }
+
+                        return day + '-' + month + '-' + year;
+                    }
+                },
                 { data : 'status', name: 'status' },
-                { data : 'tanggal_kembali', name: 'tanggal_kembali' },
+                { 
+                    data: 'tanggal_kembali', 
+                    name: 'tanggal_kembali', 
+                    className: 'text-center',
+                    render: function(data, type, row) {
+                        // Jika tanggal kosong, tampilkan ' '
+                        if (!data) {
+                            return ' ';
+                        }
+
+                        // Ubah format tanggal
+                        var date = new Date(data);
+                        var day = date.getDate();
+                        var month = date.getMonth() + 1;
+                        var year = date.getFullYear();
+
+                        if (day < 10) {
+                            day = '0' + day;
+                        }
+                        if (month < 10) {
+                            month = '0' + month;
+                        }
+
+                        return day + '-' + month + '-' + year;
+                    }
+                },
                 { data : 'denda', name: 'denda' },
                 {
                     data : 'action',
