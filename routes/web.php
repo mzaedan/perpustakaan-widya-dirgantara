@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth']], function(){
     
     Route::get('/user/index', [UserAnggotaController::class, 'index'])->name('index-user');
     Route::get('/user/edit/{id}', [UserAnggotaController::class, 'edit'])->name('edit-user');
-    Route::get('/user/update', [UserAnggotaController::class, 'update'])->name('update-user');
+    Route::put('/user/update/{id}', [UserAnggotaController::class, 'update'])->name('update-user');
     
     Route::get('user/cetak-kartu/{id}', [App\Http\Controllers\Admin\UserController::class, 'cetak_pdf'])->name('cetak-kartu');
 });
