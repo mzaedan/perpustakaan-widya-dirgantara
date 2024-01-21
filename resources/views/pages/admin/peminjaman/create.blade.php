@@ -230,7 +230,9 @@
     
     let selectedIdBuku = [];
     let i = 0;
-    function addToBukuYangDipinjam(idBuku) {
+    
+    function addToBukuYangDipinjam(idBuku) 
+    {
         if (selectedIdBuku.includes(idBuku)) {
             return alert('Buku ini sudah ditambahkan pada daftar yang akan dipinjam, silahkan pilih buku lain');
         }
