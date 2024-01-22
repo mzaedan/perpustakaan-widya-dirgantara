@@ -151,8 +151,8 @@ class Peminjaman extends Model
         $hargaDenda = floatval($dendaAktif->harga_denda);
 
         $jumlahTelatKembalikan = $this->getJumlahTelatKembalikan();
-        
-        $totalDenda = $hargaDenda * $jumlahTelatKembalikan;
+
+        $totalDenda = $hargaDenda * $jumlahTelatKembalikan * $this->getJumlahBuku();
 
         return $totalDenda;
     }

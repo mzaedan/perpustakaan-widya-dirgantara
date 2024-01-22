@@ -156,9 +156,9 @@ class UserController extends Controller
     
     public function cetak_pdf(PDF $pdf, string $id)
     {
-        $alluser = User::findOrFail($id);
+        $item = User::findOrFail($id);
     
-        $pdf = $pdf->loadview('pages.admin.user.cetak_kartu',['alluser'=>$alluser]);
+        $pdf = $pdf->loadview('pages.admin.user.cetak_kartu',['item'=>$item]);
 
         return $pdf->stream('laporan-cetak-pdf');
     }

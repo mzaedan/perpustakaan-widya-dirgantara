@@ -25,7 +25,7 @@ class UserAnggotaController extends Controller
                                     Aksi
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="' . route('cetak-kartu', $item->id). '" target="_blank">
+                                    <a class="dropdown-item" href="' . route('cetak-kartu-anggota', $item->id). '" target="_blank">
                                         Cetak Kartu
                                     </a>
                                     <a class="dropdown-item" href="' . route('show-user', $item->id). '">
@@ -95,5 +95,17 @@ class UserAnggotaController extends Controller
         return view('anggota-view',[
             'item' => $item
         ]);
+    }
+
+    public function cetak_kartu(PDF $pdf, string $id)
+    {
+        $item = User::findOrFail($id);
+        if ($item->id !== auth()->user()->id) {
+            abort(403);
+        }
+    
+        $pdf = $pdf->loadview('anggota-cetak-kartu',['item'=>$item]);
+
+        return $pdf->stream('laporan-cetak-pdf');
     }
 }

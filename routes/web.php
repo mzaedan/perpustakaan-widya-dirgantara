@@ -62,7 +62,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::put('/user/update/{id}', [UserAnggotaController::class, 'update'])->name('update-user');
     Route::get('/user/show/{id}', [UserAnggotaController::class, 'show'])->name('show-user');
     
-    Route::get('user/cetak-kartu/{id}', [App\Http\Controllers\Admin\UserController::class, 'cetak_pdf'])->name('cetak-kartu');
+    Route::get('/user/cetak-kartu-anggota/{id}', [UserAnggotaController::class, 'cetak_kartu'])->name('cetak-kartu-anggota');
+    Route::get('user/cetak-kartu/{id}', [UserController::class, 'cetak_pdf'])->name('cetak-kartu');
 });
 
 Route::group(['middleware' => ['auth','admin']], function(){
