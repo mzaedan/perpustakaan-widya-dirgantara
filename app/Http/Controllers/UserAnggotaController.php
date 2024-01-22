@@ -28,8 +28,8 @@ class UserAnggotaController extends Controller
                                     <a class="dropdown-item" href="' . route('cetak-kartu', $item->id). '" target="_blank">
                                         Cetak Kartu
                                     </a>
-                                    <a class="dropdown-item" href="' . route('user.show', $item->id). '">
-                                        Detail
+                                    <a class="dropdown-item" href="' . route('show-user', $item->id). '">
+                                        Details
                                     </a>
                                     <a class="dropdown-item" href="' . route('edit-user', $item->id). '">
                                         Edit
@@ -83,5 +83,17 @@ class UserAnggotaController extends Controller
 
         $item->update($data);
         return redirect()->route('index-user');
+    }
+
+    public function show(string $id)
+    {
+        $item = User::findOrFail($id);
+        if ($item->id !== auth()->user()->id) {
+            abort(403);
+        }
+
+        return view('anggota-view',[
+            'item' => $item
+        ]);
     }
 }
