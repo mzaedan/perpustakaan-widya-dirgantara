@@ -59,7 +59,7 @@
                                         <div class="form-group">
                                             <label>Cari Buku</label>
                                             <div class="input-group">
-                                                <input type="text" class="form-control" required autocomplete="off" name="buku-search" id="buku-search" placeholder="Contoh : Membaca Cepat, BK001">
+                                                <input type="text" class="form-control" autocomplete="off" name="buku-search" id="buku-search" placeholder="Contoh : Membaca Cepat, BK001">
                                                 <div class="input-group-append">
                                                     <a data-toggle="modal" data-target="#TableBuku" class="btn btn-primary"><i class="fa fa-search"></i></a>
                                                 </div>
