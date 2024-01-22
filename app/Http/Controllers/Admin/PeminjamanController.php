@@ -250,11 +250,16 @@ class PeminjamanController extends Controller
     {
         $search = $request->get('search');
 
+        if (empty($search)) {
+            return response()->json([
+                'status' => "error",
+                'message' => 'Buku Tidak Ditemukan!',
+            ], 200);
+        }
+
         $queryBuku = Buku::query();
-        if (!empty($search)) {
-            $queryBuku->where('kode_buku','LIKE',"%$search%")
-                ->orWhere('nama','LIKE',"%$search%");
-        } 
+        $queryBuku->where('kode_buku','LIKE',"%$search%")
+            ->orWhere('nama','LIKE',"%$search%");
         $allBuku = $queryBuku->get();
 
         if ($allBuku && count($allBuku) > 0) {

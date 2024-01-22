@@ -118,7 +118,7 @@
             url = url + '&kode_anggota=' + kodeAnggota;
         }
 
-        console.log("keyup#anggota-search.url: ", url)
+        // console.log("keyup#anggota-search.url: ", url)
 
         axios.get(url).then(function (response) {
             let result = $('#result_anggota').html('');
@@ -163,123 +163,130 @@
 </script>
 
 <script>
-    let listBuku = [];
+    $(function() {
+        let listBuku = [];
 
-    $(document).on('keyup', '#buku-search', function() {
-
-        let search = $(this).val();
-        let url = "<?= url('/peminjaman/buku-list?') ?>";
-        
-        if (search !== "" && search !== null) {
-            url = url + '&search=' + search;
-        }
-
-        // console.log("keyup#buku-search.url: ", url)
-
-        axios.get(url).then(function (response) {
-            let result = $('#result_buku').html('');
-            if (response.data.status == "ok") {
-
-                listBuku = response.data.data;
-                
-                let html = `<table id="example3" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Title</th>
-                            <th>Penerbit</th>
-                            <th>Tahun</th>
-                            <th></th>
-                        </tr>
-				    </thead>
-                    <tbody id="tbody_result_buku">
-                        
-                    </tbody>
-                </table>`;
-                
-                $("#tunggu_buku").hide();
-                result = html;
-                $('#result_buku').html(result);
-
-
-                let tr = '';
-                listBuku.map((buku, index) => {
-                    tr += `<tr>
-                            <td>${index + 1}</td>
-                            <td>${buku.nama}</td>
-                            <td>${buku.penerbit}</td>
-                            <td>${buku.tahun_buku}</td>
-                            <td>
-                                <button type="button" class="btn btn-primary btn-xs" onclick="addToBukuYangDipinjam(`+buku.id+`)">
-                                    <i class="fa fa-plus"></i>
-                                </button>    
-                            </td>
-                        </tr>`; 
-                });
-                $("#tbody_result_buku").append(tr);
-            } else {
-                $("#tunggu_buku").show();
-            }
-        })
-        .catch(function (error) {
-            let result = $('#result_buku').html('');
-            $("#tunggu_buku").show();
-        });
-        
-    });
+        $('#buku-search').on('keyup', function() {
     
-    let selectedIdBuku = [];
-    let i = 0;
-    function addToBukuYangDipinjam(idBuku) {
-        if (selectedIdBuku.includes(idBuku)) {
-            return alert('Buku ini sudah ditambahkan pada daftar yang akan dipinjam, silahkan pilih buku lain');
-        }
-
-        let filterBuku = listBuku.filter((value) => value.id === idBuku);
-        let buku = {};
-        
-        if (filterBuku.length > 0) {
-            buku = filterBuku[0];
-        }
-
-        if (buku?.stok === 0) {
-            return alert('Maaf, stok buku ini sudah habis');
-        }
-        
-        selectedIdBuku.push(buku?.id);
-        
-        console.log("selectedIdBuku:", selectedIdBuku);
-
-        i++;
-
-        let tr = '';
-
-        tr = `<tr>
-                <td id="row_num">${i}</td>
-                <td>${buku?.nama}</td>
-                <td>${buku?.penerbit}</td>
-                <td>${buku?.tahun_buku}</td>
-                <td>
-                    <button type="button" name="remove" class="btn btn-danger btn-xs btn_remove">
-                        <i class="fa fa-times"></i>
-                    </button>
-                    <input type="hidden" name="id_buku[]" value="${idBuku}" />
-                </td>
-            </tr>`;
-
-        $("#tbody_buku_yang_dipinjam").append(tr);
-    }
-
-    $(document).on('click', '.btn_remove', function() {
-        $(this).closest("tr").remove(); //use closest here
-        $('#tbody_buku_yang_dipinjam tr').each(function(index) {
-            //change id of first tr
-            $(this).find("td:eq(0)").attr("id", "row_num" + (index + 1))
-            //change hidden input value 
-            $(this).find("td:eq(0)").html((index + 1))
+            let search = $(this).val();
+    
+            let url = "<?= url('/peminjaman/buku-list?') ?>";
+            
+            if (search !== "" && search !== null) {
+                url = url + '&search=' + search;
+            }
+    
+            axios.get(url).then(function (response) {
+                let result = $('#result_buku').html('');
+                
+                if (response.data.status == "ok") {
+    
+                    listBuku = response.data.data;
+                    
+                    let html = `<table id="example3" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Title</th>
+                                <th>Penerbit</th>
+                                <th>Tahun</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_result_buku">
+                            
+                        </tbody>
+                    </table>`;
+                    
+                    $("#tunggu_buku").hide();
+                    result = html;
+                    $('#result_buku').html(result);
+    
+                    let tr = '';
+                    listBuku.map((buku, index) => {
+                        tr += `<tr>
+                                <td>${index + 1}</td>
+                                <td>${buku.nama}</td>
+                                <td>${buku.penerbit}</td>
+                                <td>${buku.tahun_buku}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-xs" onclick="addToBukuYangDipinjam(`+buku.id+`)">
+                                        <i class="fa fa-plus"></i>
+                                    </button>    
+                                </td>
+                            </tr>`; 
+                    });
+                    $("#tbody_result_buku").append(tr);
+                }
+    
+                if (response.data.status == 'error') {
+                    $("#tunggu_buku").show();
+                    let result = $("#example3").remove();
+                    $('#result_buku').html('');
+                }
+            })
+            .catch(function (error) {
+                let result = $('#example3').remove();
+                $("#tunggu_buku").show();
+            });
+            
         });
-        i--;
-    });
+        
+        let selectedIdBuku = [];
+        let i = 0;
+    
+        function addToBukuYangDipinjam(idBuku) 
+        {
+            if (selectedIdBuku.includes(idBuku)) {
+                return alert('Buku ini sudah ditambahkan pada daftar yang akan dipinjam, silahkan pilih buku lain');
+            }
+    
+            let filterBuku = listBuku.filter((value) => value.id === idBuku);
+            let buku = {};
+            
+            if (filterBuku.length > 0) {
+                buku = filterBuku[0];
+            }
+    
+            if (buku?.stok === 0) {
+                return alert('Maaf, stok buku ini sudah habis');
+            }
+            
+            selectedIdBuku.push(buku?.id);
+            
+            console.log("selectedIdBuku:", selectedIdBuku);
+    
+            i++;
+    
+            let tr = '';
+    
+            tr = `<tr>
+                    <td id="row_num">${i}</td>
+                    <td>${buku?.nama}</td>
+                    <td>${buku?.penerbit}</td>
+                    <td>${buku?.tahun_buku}</td>
+                    <td>
+                        <button type="button" name="remove" class="btn btn-danger btn-xs btn_remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                        <input type="hidden" name="id_buku[]" value="${idBuku}" />
+                    </td>
+                </tr>`;
+    
+            $("#tbody_buku_yang_dipinjam").append(tr);
+        }
+    
+        $(document).on('click', '.btn_remove', function() {
+            $(this).closest("tr").remove(); //use closest here
+            $('#tbody_buku_yang_dipinjam tr').each(function(index) {
+                //change id of first tr
+                $(this).find("td:eq(0)").attr("id", "row_num" + (index + 1))
+                //change hidden input value 
+                $(this).find("td:eq(0)").html((index + 1))
+            });
+            i--;
+        });
+    })
     
 </script>
 

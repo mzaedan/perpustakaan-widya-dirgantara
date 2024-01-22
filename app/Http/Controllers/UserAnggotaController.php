@@ -82,6 +82,6 @@ class UserAnggotaController extends Controller
         }
 
         $item->update($data);
-        return redirect()->route('user.index');
+        return redirect()->route('index-user');
     }
 }
