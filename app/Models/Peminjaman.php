@@ -68,9 +68,19 @@ class Peminjaman extends Model
         return 'PJ' . str_pad($nextKodeNumber, 3, '0', STR_PAD_LEFT);
     }
 
-    public function updateStokBuku($peminjamanDihapus = false)
+    public function updateAllStokBuku($peminjamanDihapus = false)
     {
-        $buku = $this->buku;
+        foreach($this->manyPeminjamanBuku as $peminjamanBuku)
+        {
+            $buku = $peminjamanBuku->buku;
+
+            $this->updateStokBuku($buku, $peminjamanDihapus);
+        }
+    }
+
+    public function updateStokBuku(Buku $buku, $peminjamanDihapus = false)
+    {
+        dd($buku);
 
         if ($buku === null) {
             return false;

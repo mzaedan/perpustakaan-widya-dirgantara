@@ -153,7 +153,7 @@ class PeminjamanController extends Controller
         $peminjaman->status = 'Dipinjam';
         $peminjaman->save();
 
-        $peminjaman->updateStokBuku();
+        $peminjaman->updateAllStokBuku();
         $peminjaman->updateTanggalDikembalikan();
 
         if (count($data['id_buku']) > 0) {
@@ -202,7 +202,7 @@ class PeminjamanController extends Controller
     public function destroy(string $id)
     {
         $item = Peminjaman::findOrFail($id);
-        $item->updateStokBuku(true);
+        $item->updateAllStokBuku(true);
         $item->delete();
 
         return redirect()->route('peminjaman.index');
@@ -213,7 +213,7 @@ class PeminjamanController extends Controller
         $peminjaman = Peminjaman::findOrFail($id);
         $peminjaman->status = 'Dikembalikan';
         $peminjaman->tanggal_kembali = date('Y-m-d');
-        $peminjaman->updateStokBuku();
+        $peminjaman->updateAllStokBuku();
         $peminjaman->save();
 
         return redirect()->route('peminjaman.index')->with('success', 'Peminjaman berhasil dikembalikan');
