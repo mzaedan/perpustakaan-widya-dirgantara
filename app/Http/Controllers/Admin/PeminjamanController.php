@@ -152,10 +152,7 @@ class PeminjamanController extends Controller
         $peminjaman->lama_peminjaman = $data['lama_peminjaman'];
         $peminjaman->status = 'Dipinjam';
         $peminjaman->save();
-
-        $peminjaman->updateAllStokBuku();
-        $peminjaman->updateTanggalDikembalikan();
-
+        
         if (count($data['id_buku']) > 0) {
             foreach ($data['id_buku'] as $idBuku) {
                 $peminjamanBuku = new PeminjamanBuku();
@@ -164,6 +161,9 @@ class PeminjamanController extends Controller
                 $peminjamanBuku->save();
             } 
         }
+
+        $peminjaman->updateAllStokBuku();
+        $peminjaman->updateTanggalDikembalikan();
 
         return redirect()->route('peminjaman.index');
     }
@@ -203,6 +203,9 @@ class PeminjamanController extends Controller
     {
         $item = Peminjaman::findOrFail($id);
         $item->updateAllStokBuku(true);
+        foreach ($item->manyPeminjamanBuku as $peminjamanBuku) {
+            $peminjamanBuku->delete();
+        }
         $item->delete();
 
         return redirect()->route('peminjaman.index');
@@ -213,8 +216,9 @@ class PeminjamanController extends Controller
         $peminjaman = Peminjaman::findOrFail($id);
         $peminjaman->status = 'Dikembalikan';
         $peminjaman->tanggal_kembali = date('Y-m-d');
-        $peminjaman->updateAllStokBuku();
         $peminjaman->save();
+
+        $peminjaman->updateAllStokBuku();
 
         return redirect()->route('peminjaman.index')->with('success', 'Peminjaman berhasil dikembalikan');
     }

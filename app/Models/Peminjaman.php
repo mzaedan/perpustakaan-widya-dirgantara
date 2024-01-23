@@ -80,8 +80,6 @@ class Peminjaman extends Model
 
     public function updateStokBuku(Buku $buku, $peminjamanDihapus = false)
     {
-        dd($buku);
-
         if ($buku === null) {
             return false;
         }
@@ -92,15 +90,15 @@ class Peminjaman extends Model
             return false;
         }
 
-        if ($this->status === "Dipinjam") {
+        if ($this->status === "Dipinjam" && $peminjamanDihapus === false) {
             $jumlahBuku--;
         }
 
-        if ($this->status === "Dikembalikan") {
+        if ($this->status === "Dipinjam" && $peminjamanDihapus === true) {
             $jumlahBuku++;
         }
 
-        if ($peminjamanDihapus) {
+        if ($this->status === "Dikembalikan" && $peminjamanDihapus === true) {
             $jumlahBuku++;
         }
 
