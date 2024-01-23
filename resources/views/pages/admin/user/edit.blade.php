@@ -54,15 +54,18 @@
                                         <div class="form-group">
                                             <label>Roles</label>
                                             <select name="roles" class="form-select" required="required">
+                                                <option value="{{ $item->roles }}" selected>{{ $item->roles }}</option>
                                                 <option value="ADMIN">ADMIN</option>
                                                 <option value="ANGGOTA">ANGGOTA</option>
                                             </select>
+                                            <small>Abaikan Jika Tidak Akan Ganti Roles</small>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Kelas</label>
-                                            <input type="kelas" class="form-control" name="kelas" placeholder="Contoh : X Teknik Komputer Jaringan" value="{{ $item->kelas }}">
+                                            <input type="kelas" class="form-control" name="kelas" placeholder="Contoh : X Teknik Komputer Jaringan/Guru" value="{{ $item->kelas }}">
+                                            <small>Kosongkan Atau Isi Guru Jika Anda Bukan Anggota Siswa</small>
                                         </div>
                                         <div class="form-group">
                                             <label>Jenis Kelamin</label>

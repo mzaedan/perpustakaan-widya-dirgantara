@@ -46,12 +46,12 @@
                     <button type="submit" class="btn btn-login btn-block">
                     Sign In
                     </button>
-                    @if (Route::has('password.request'))
+                    {{-- @if (Route::has('password.request'))
                     <p class="text-center mt-4">
                       <a class="btn btn-link" href="{{ route('password.request') }}">Saya Lupa Password</a>
                     </p>
-                    @endif
-                    <div id="my-element">
+                    @endif --}}
+                    <div id="my-element" class="mt-4">
                       <p style="text-align: center">Belum punya akun? Klik <a href="{{ url('/register') }}">Disini</a> untuk mendaftar</p>
                     </div>
                 </form>

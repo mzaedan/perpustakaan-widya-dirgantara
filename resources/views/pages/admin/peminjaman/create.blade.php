@@ -163,9 +163,9 @@
 </script>
 
 <script>
+    let listBuku = [];
     $(function() {
-        let listBuku = [];
-
+        
         $('#buku-search').on('keyup', function() {
     
             let search = $(this).val();
@@ -231,52 +231,55 @@
             });
             
         });
-        
-        let selectedIdBuku = [];
-        let i = 0;
-    
-        function addToBukuYangDipinjam(idBuku) 
-        {
-            if (selectedIdBuku.includes(idBuku)) {
-                return alert('Buku ini sudah ditambahkan pada daftar yang akan dipinjam, silahkan pilih buku lain');
-            }
-    
-            let filterBuku = listBuku.filter((value) => value.id === idBuku);
-            let buku = {};
-            
-            if (filterBuku.length > 0) {
-                buku = filterBuku[0];
-            }
-    
-            if (buku?.stok === 0) {
-                return alert('Maaf, stok buku ini sudah habis');
-            }
-            
-            selectedIdBuku.push(buku?.id);
-            
-            console.log("selectedIdBuku:", selectedIdBuku);
-    
-            i++;
-    
-            let tr = '';
-    
-            tr = `<tr>
-                    <td id="row_num">${i}</td>
-                    <td>${buku?.nama}</td>
-                    <td>${buku?.penerbit}</td>
-                    <td>${buku?.tahun_buku}</td>
-                    <td>
-                        <button type="button" name="remove" class="btn btn-danger btn-xs btn_remove">
-                            <i class="fa fa-times"></i>
-                        </button>
-                        <input type="hidden" name="id_buku[]" value="${idBuku}" />
-                    </td>
-                </tr>`;
-    
-            $("#tbody_buku_yang_dipinjam").append(tr);
+    })
+
+    let selectedIdBuku = [];
+    let i = 0;
+
+    function addToBukuYangDipinjam(idBuku) 
+    {
+        if (selectedIdBuku.includes(idBuku)) {
+            return alert('Buku ini sudah ditambahkan pada daftar yang akan dipinjam, silahkan pilih buku lain');
         }
-    
+
+        let filterBuku = listBuku.filter((value) => value.id === idBuku);
+        let buku = {};
+        
+        if (filterBuku.length > 0) {
+            buku = filterBuku[0];
+        }
+
+        if (buku?.stok === 0) {
+            return alert('Maaf, stok buku ini sudah habis');
+        }
+        
+        selectedIdBuku.push(buku?.id);
+        
+        console.log("selectedIdBuku:", selectedIdBuku);
+
+        i++;
+
+        let tr = '';
+
+        tr = `<tr>
+                <td id="row_num">${i}</td>
+                <td>${buku?.nama}</td>
+                <td>${buku?.penerbit}</td>
+                <td>${buku?.tahun_buku}</td>
+                <td>
+                    <button type="button" name="remove" data-id="${buku?.id}" class="btn btn-danger btn-xs btn_remove">
+                        <i class="fa fa-times"></i>
+                    </button>
+                    <input type="hidden" name="id_buku[]" value="${idBuku}" />
+                </td>
+            </tr>`;
+
+        $("#tbody_buku_yang_dipinjam").append(tr);
+    }
         $(document).on('click', '.btn_remove', function() {
+            var idBuku = $(this).data('id');
+            console.log(selectedIdBuku)
+            console.log('idbuku', idBuku)
             $(this).closest("tr").remove(); //use closest here
             $('#tbody_buku_yang_dipinjam tr').each(function(index) {
                 //change id of first tr
@@ -285,8 +288,14 @@
                 $(this).find("td:eq(0)").html((index + 1))
             });
             i--;
+            selectedIdBuku = removeItemFromArray(selectedIdBuku, idBuku)
         });
-    })
+
+        function removeItemFromArray(array, valueToRemove) {
+            return array.filter(item => 
+                item !== valueToRemove
+            );
+        }
     
 </script>
 

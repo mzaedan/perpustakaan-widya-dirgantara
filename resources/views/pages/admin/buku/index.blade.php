@@ -80,7 +80,6 @@
                     { data : 'nama', name: 'nama' },
                     { data : 'penerbit', name: 'penerbit' },
                     { data : 'tahun_buku', name: 'tahun_buku', className: 'text-center' },
-                    
                     { data : 'jumlah', name: 'jumlah' },
                     { data : 'rak.nama', name: 'rak.nama'},
                     {
