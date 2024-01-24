@@ -90,15 +90,21 @@ class Peminjaman extends Model
             return false;
         }
 
-        if ($this->status === "Dipinjam" && $peminjamanDihapus === false) {
+        if ($this->status === "Dipinjam" && 
+            $peminjamanDihapus === false
+        ) {
             $jumlahBuku--;
         }
 
-        if ($this->status === "Dipinjam" && $peminjamanDihapus === true) {
+        if ($this->status === "Dipinjam" && 
+            $peminjamanDihapus === true
+        ) {
             $jumlahBuku++;
         }
 
-        if ($this->status === "Dikembalikan" && $peminjamanDihapus === true) {
+        if ($this->status === "Dikembalikan" && 
+            $peminjamanDihapus === false
+        ) {
             $jumlahBuku++;
         }
 
