@@ -19,7 +19,7 @@
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
-            <h3>{{ $jumlah_anggota }}</h3>
+            <h3></h3>
             <p>Anggota</p>
           </div>
           <div class="icon">
@@ -33,7 +33,7 @@
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>{{ $jumlah_buku }}</h3>
+            <h3></h3>
             <p>Jumlah Buku</p>
           </div>
           <div class="icon">
@@ -47,7 +47,7 @@
         <!-- small box -->
         <div class="small-box bg-warning">
           <div class="inner">
-            <h3>{{ $jumlah_peminjaman }}</h3>
+            <h3></h3>
             <p>Jumlah Peminjaman</p>
           </div>
           <div class="icon">
@@ -61,7 +61,7 @@
         <!-- small box -->
         <div class="small-box bg-danger">
           <div class="inner">
-            <h3>{{ $jumlah_pengembalian }}</h3>
+            <h3></h3>
             <p>Jumlah Pengembalian</p>
           </div>
           <div class="icon">
