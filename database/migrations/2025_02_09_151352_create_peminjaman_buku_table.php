@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('peminjaman_buku', function (Blueprint $table) {
             $table->id();
-             $table->integer('id_peminjaman');
+            $table->integer('id_peminjaman');
             $table->integer('id_buku');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

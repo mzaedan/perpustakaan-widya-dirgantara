@@ -16,7 +16,7 @@
                             <div class="form-group col-md-2">
                                 <label for="id_rak" class="form-label">Rak</label>
                                 <select name="id_rak" id="id_rak" class="form-control">
-                                    <option value="">-- Pilih --</option>
+                                    <option value="">-- Pilih Rak --</option>
                                     @foreach ($allRak as $item)
                                         <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                     @endforeach

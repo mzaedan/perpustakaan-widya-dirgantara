@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('peminjaman', function (Blueprint $table) {
+            $table->string('id_buku')->nullable()->change();
             $table->string('kode_peminjaman')->nullable()->change();
             $table->string('status')->nullable()->change();
             $table->string('tanggal_peminjaman')->nullable()->change();
@@ -27,6 +28,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('peminjaman', function (Blueprint $table) {
+            $table->string('id_buku')->nullable(false)->change();
             $table->string('kode_peminjaman')->nullable(false)->change();
             $table->string('status')->nullable(false)->change();
             $table->string('tanggal_peminjaman')->nullable(false)->change();
